@@ -1,7 +1,11 @@
 <template>
   <div class='article'>
-    <div class="date">2018.9.9</div>
-    <div class="title">深度优先遍历</div>
+    <div class="date">
+      <router-link to='./Article'>2018.9.9</router-link>
+    </div>
+    <div class="title">
+      <router-link to='./Article'>深度优先遍历</router-link>
+    </div>
     <div class="cover-img">
       <img src="../../../assets/reeyou.jpg" alt="">
     </div>
