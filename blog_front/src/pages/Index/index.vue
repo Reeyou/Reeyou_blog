@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Mine />
+    <Mine name='a' @changeValue='receive'/>
     <Tab />
     <ArticleList />
     <Footer />
@@ -13,6 +13,11 @@ import Tab from '../../components/tab'
 import ArticleList from '../../components/articleList'
 import Footer from '../../components/footer'
 export default {
+  methods: {
+    receive(val) {
+      console.log(val)
+    }
+  },
   components: {
     Mine,
     Tab,

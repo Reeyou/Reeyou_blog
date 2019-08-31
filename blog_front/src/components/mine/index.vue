@@ -3,13 +3,18 @@
     <div class="avatar">
       <img src="../../assets/reeyou.jpg" alt="">
     </div>
-    <div class="nickName">Reeyou</div>
+    <div class="nickName" @click="$emit('changeValue','change')">Reeyou{{name}}</div>
   </div>
 </template>
 
 <script>
   export default {
-    
+    props: ['name'],
+    data() {
+      return {
+
+      }
+    }
   }
 </script>
 
