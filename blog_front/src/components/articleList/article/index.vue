@@ -21,7 +21,7 @@
 
 <style lang="scss" scoped>
   .article {
-    width: 1200px;
+    width: 100%;
     box-sizing: border-box;
     margin: 0 auto 30px;
     padding-left: 50px;
