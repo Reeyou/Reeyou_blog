@@ -26,13 +26,13 @@ export default function request(url, options) {
   if(option.method == 'POST') {
     return Post(url, option.body);
   } else {
-    return Get(url, params);
+    return Get(url);
   }
 
   //封装Get方法
-  function Get(url, params) {
+  function Get(url) {
     return new Promise((resolve, reject) => {
-      axios.get(url, params)
+      axios.get(url)
       .then(res => {
         resolve(res.data);
       })

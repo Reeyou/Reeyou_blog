@@ -13,6 +13,7 @@
             <BreadcrumbItem>Layout</BreadcrumbItem>
           </Breadcrumb>
           <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+            <Home v-if="status" />
             <router-view />
           </Content>
         </Layout>
@@ -22,12 +23,28 @@
 </template>
 
 <script>
+import Home from "@/pages/Home";
 import Menu from "@/components/Menu";
 import Header from "@/components/Header";
 export default {
+  data() {
+    return {
+      status: false
+    };
+  },
   components: {
+    Home,
     Menu,
     Header
+  },
+  mounted() {},
+  watch: {
+    $route(to, from) {
+      this.status = to.path === "/" ? true : false;
+    }
+  },
+  created() {
+    this.status = window.location.href === '/' ? true : false;
   }
 };
 </script>

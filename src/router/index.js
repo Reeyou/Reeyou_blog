@@ -17,11 +17,12 @@ export default new Router({
       name: 'Main',
       component: Main,
       children: [
-        {path: 'home', name: 'home', component: () => import('@/pages/Home')},
         {path: 'article', name: 'article', component: () => import('@/pages/Article')},
-        {path: 'articleAdd', name: 'articleAdd', component: () => import('@/pages/Article/articleAdd')},
-        {path: 'articleEdit', name: 'articleEdit', component: () => import('@/pages/Article/articleEdit')},
+        {path: 'addArticle', name: 'addArticle', component: () => import('@/pages/Article/addArticle')},
+        {path: 'editArticle', name: 'editArticle', component: () => import('@/pages/Article/editArticle')},
         {path: 'tag', name: 'tag', component: () => import('@/pages/Tag')},
+        {path: 'message', name: 'message', component: () => import('@/pages/Message')},
+        {path: 'user', name: 'user', component: () => import('@/pages/User')},
       ]
     }
   ]

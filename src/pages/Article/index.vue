@@ -3,74 +3,59 @@
     <PageTable
       title="文章列表"
       :columns="columns"
-      :data="data"
+      :data="tbData"
       :filters="filters"
-      :addBtn='{status: true, addArticle}'
-      :onFilter='handleFilter'
-      :onReset='handleReset'
+      :addBtn="{label: '添加文章',status: true, onAdd: addArticle}"
+      :onFilter="handleFilter"
+      :onReset="handleReset"
     />
   </div>
 </template>
 
 <script>
 import PageTable from "@/components/PageTable";
+import { getArticleList } from '@/service/article'
 export default {
   data() {
     return {
+      tbData: [],
       columns: [
         {
-          title: "Name",
-          key: "name",
+          title: "文章id",
+          key: "id"
         },
         {
-          title: "Age",
-          key: "age"
+          title: "文章标题",
+          key: "title"
         },
         {
-          title: "Address",
-          key: "address"
+          title: "文章描述",
+          key: "desc"
         },
         {
-          title: "Action",
+          title: "封面图",
+          key: "poster"
+        },
+        {
+          title: "文章分类",
+          key: "tag"
+        },
+        {
+          title: "创建时间",
+          key: "create_time"
+        },
+        {
+          title: "操作",
           key: "action",
           width: 150,
           align: "center",
-          render: (h, params) => {
-            return h("div", [
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "primary",
-                    size: "small"
-                  },
-                  style: {
-                    marginRight: "5px"
-                  },
-                  on: {
-                    click: () => {
-                      this.show(params.index);
-                    }
-                  }
-                },
-                "View"
-              ),
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "error",
-                    size: "small"
-                  },
-                  on: {
-                    click: () => {
-                      this.remove(params.index);
-                    }
-                  }
-                },
-                "Delete"
-              )
-            ]);
+          render: params => {
+            return (
+              <div class="action">
+                <span onClick={() => this.editArticle(params)}>编辑</span>
+                <span onClick={() => this.deleteArticle(params)}>删除</span>
+              </div>
+            );
           }
         }
       ],
@@ -92,7 +77,7 @@ export default {
           type: "Select",
           status: [
             {
-              value: '',
+              value: "",
               label: "全部"
             },
             {
@@ -101,38 +86,29 @@ export default {
             }
           ]
         }
-      ],
-      data: [
-        {
-          name: "John Brown",
-          age: 18,
-          address: "New York No. 1 Lake Park"
-        },
-        {
-          name: "Jim Green",
-          age: 24,
-          address: "London No. 1 Lake Park"
-        },
-        {
-          name: "Joe Black",
-          age: 30,
-          address: "Sydney No. 1 Lake Park"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park"
-        }
       ]
     };
   },
+  created() {
+    this.getData()
+  },
   methods: {
     handleFilter() {
-      console.log(11)
+      console.log(11);
     },
     handleReset() {
-      console.log(22)
-    }
+      console.log(22);
+    },
+    addArticle() {
+      this.$router.push("/addArticle");
+    },
+    getData() {
+      getArticleList().then(res => {
+        this.tbData = res.data
+      })
+    },
+    editArticle() {},
+    deleteArticle() {}
   },
   components: {
     PageTable

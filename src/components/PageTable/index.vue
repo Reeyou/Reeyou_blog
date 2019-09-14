@@ -2,7 +2,7 @@
   <div>
     <div class="title">{{title}}</div>
     <div class="addBtn" v-if='addBtn.status'>
-      <Button type='primary' icon='ios-add' @click='addBtn.addArticle'>添加文章</Button>
+      <Button type='primary' icon='ios-add' @click='addBtn.onAdd'>{{addBtn.label}}</Button>
     </div>
     <Row :gutter="30">
       <Col span="8" v-for="(item,index) in filters" :key='index'>

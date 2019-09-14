@@ -8,3 +8,6 @@ export async function addArticle(params) {
     }
   })
 }
+export async function getArticleList() {
+  return request('/api/getArticleList')
+}

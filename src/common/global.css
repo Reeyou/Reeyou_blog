@@ -1,0 +1,9 @@
+.action span{
+  color: #2d8cf0;
+}
+.action span:hover {
+  cursor: pointer;
+}
+.action span:first-child {
+  margin-right: 14px;
+}
