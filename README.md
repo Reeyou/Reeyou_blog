@@ -1,4 +1,4 @@
-# Reeyou_blog
+# blog_admin
 
 > A Vue.js project
 
