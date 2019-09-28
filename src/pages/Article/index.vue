@@ -22,7 +22,7 @@ export default {
       columns: [
         {
           title: "文章id",
-          key: "id"
+          key: "_id"
         },
         {
           title: "文章标题",
@@ -34,7 +34,14 @@ export default {
         },
         {
           title: "封面图",
-          key: "poster"
+          key: "poster",
+          // render: params => {
+          //   return (
+          //     <div class="action">
+          //       <img src={params} />
+          //     </div>
+          //   );
+          // }
         },
         {
           title: "文章分类",
@@ -107,7 +114,9 @@ export default {
         this.tbData = res.data
       })
     },
-    editArticle() {},
+    editArticle(val) {
+      console.log(val)
+    },
     deleteArticle() {}
   },
   components: {

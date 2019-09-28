@@ -61,7 +61,6 @@ export default {
         desc: "",
         poster_src: "",
         tag: "",
-        content: ""
       },
       articleRule: {
         title: [
@@ -113,6 +112,7 @@ export default {
     },
     // 所有操作都会被解析重新渲染
     mavonChange(value, render) {
+      this.content = value
       this.html = render;
     },
     changeTag(val) {
@@ -121,7 +121,7 @@ export default {
     // 提交
     handleSubmit() {
       this.$refs["articleForm"].validate(valid => {
-        console.log(this.html)
+        console.log(this.content)
         if (valid) {
           const data = this.articleForm
           const params = {

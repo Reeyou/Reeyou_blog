@@ -7,12 +7,12 @@
         <form action="">
           <div class='input'>
             <i class='iconfont icon-user'></i>
-            <input type="text" placeholder="用户名">
+            <input v-model='username' type="text" placeholder="用户名">
           </div>
           <p class='error_msg' v-show='error_msg'>{{error_user}}</p>
           <div class='input'>
             <i class='iconfont icon-password'></i>
-            <input type="password" placeholder="登录密码">
+            <input v-model='password' type="password" placeholder="登录密码">
           </div>
           <p class='error_msg' v-show='error_msg'>{{error_password}}</p>
           <button @click='login' type='button'>登录</button>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { login } from '@/service/user'
 // import { mapMutations } from 'vuex'
 export default {
   name: 'login',
@@ -37,12 +38,23 @@ export default {
       backTip: '返回首页',
       error_user: '请输入用户名',
       error_password: '请输入密码',
-      error_msg: false
+      error_msg: false,
+      username: '',
+      password: ''
     }
   },
   methods: {
     login() {
-      this.$router.push({path: '/'})
+      const params = {
+        username: this.username,
+        password: this.password
+      }
+      login(params).then(res => {
+        if(res.code == 200) {
+          localStorage.setItem('login', true)
+          this.$router.push({path: '/'})
+        }
+      })
     }
   },
   components: {
