@@ -7,19 +7,19 @@
         <form action="">
           <div class='input'>
             <i class='iconfont icon-user'></i>
-            <input v-model='username' type="text" placeholder="用户名">
+            <input autocomplete="off" v-model='username' type="text" placeholder="用户名">
           </div>
           <p class='error_msg' v-show='error_msg'>{{error_user}}</p>
           <div class='input'>
             <i class='iconfont icon-password'></i>
-            <input v-model='password' type="password" placeholder="登录密码">
+            <input autocomplete="off" v-model='password' type="password" placeholder="登录密码">
           </div>
           <p class='error_msg' v-show='error_msg'>{{error_password}}</p>
           <button @click='login' type='button'>登录</button>
-          <div class="tips">
+          <!-- <div class="tips">
             <span class='first'><a href="/#/resetPwd">忘记密码？</a></span>
             <span class='last'>没有账号？<a href="/#/register">前往注册</a></span>
-          </div>
+          </div> -->
         </form>
       </div>
       <div class="bg-circle"></div>

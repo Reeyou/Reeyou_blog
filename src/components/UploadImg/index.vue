@@ -2,7 +2,7 @@
   <div class="upload">
     <div class="upload-container">
       <div class="icon">
-        <Icon type="ios-add" class="add-icon"></Icon>
+        <el-icon type="ios-add" class="el-icon-plus"></el-icon>
         <p>上传图片</p>
       </div>
       <input
@@ -10,14 +10,13 @@
         id="image"
         @change="upload"
         accept="image/jpg, image/jpeg, image/png, image/PNG"
-        
       />
     </div>
     <div class="poster-preview" v-if="uploadStatus">
       <img :src="poster_src" class="poster" alt="封面图片" />
       <div class="preview-icon">
-        <Icon type="ios-image-outline" class='icon' @click='handlePreview'/>
-        <Icon type="ios-trash-outline" class='icon' @click='handleDelete'/>
+        <el-icon class="el-icon-picture-outline icon" @click='handlePreview'></el-icon>
+        <el-icon class="el-icon-delete icon" @click='handleDelete'/>
       </div>
     </div>
   </div>
@@ -42,7 +41,7 @@ export default {
       if (!e || !window.FileReader) return // 看支持不支持FileReader
 
       let reader = new FileReader()
-      reader.readAsDataURL(self.files); // 这里是最关键的一步，转换就在这里
+      reader.readAsDataURL(self.files); // 转换为base64
       reader.onloadend = function() {
         self.poster_src = this.result
         self.uploadStatus = true
@@ -130,6 +129,7 @@ export default {
       left: 0;
       display: none;
       padding:  20px 0;
+      box-sizing: border-box;
       border-radius: 6px;
       .icon {
         display: inline-block;

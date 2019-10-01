@@ -31,9 +31,14 @@
           padding: 0 10px;
           display: inline-block;
         }
+        input:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0px 1000px $bgWhite inset !important;
+          -webkit-text-fill-color: #293444 !important;
+        }
+        
         input {
           outline: none;
-          background: transparent;
+          // background-color: transparent;
           margin: 6px auto;
           padding: 6px 0;
           color: $Black;

@@ -4,37 +4,42 @@
       <h2>文章新增</h2>
       <p>add blog article</p>
     </div>
-    <Form
+    <el-form
       ref="articleForm"
-      label-position="left"
       :model="articleForm"
       :rules="articleRule"
-      :label-width="80"
+      label-width="100px" class="demo-ruleForm"
     >
-      <FormItem label="标题" prop="title" style="width: 500px">
-        <Input v-model="articleForm.title" placeholder="请输入文章标题" />
-      </FormItem>
-      <FormItem label="文章描述" prop="desc" style="width: 500px">
-        <Input
+      <el-form-item label="标题" prop="title" style="width: 500px">
+        <el-input v-model="articleForm.title" placeholder="请输入文章标题" />
+      </el-form-item>
+      <el-form-item label="文章描述" prop="desc" style="width: 500px">
+        <el-input
           v-model="articleForm.desc"
           type="textarea"
           :autosize="{minRows: 2,maxRows: 5}"
           placeholder="请输入文章描述"
         />
-      </FormItem>
-      <FormItem label="标签" prop="tag" style="width: 500px">
-        <Select style="width:200px" class='tagList'>
-          <Option v-for="(item,index) in tagList" :value="item.tagname" :key="index" @click.native='changeTag(item.tagname)'>{{ item.tagname }}</Option>
-        </Select>
-      </FormItem>
-      <FormItem label="封面图" prop="poster_src">
+      </el-form-item>
+      <el-form-item label="标签" prop="tag" style="width: 500px">
+        <el-select style="width:200px" v-model='value' class='tagList'>
+          <el-option
+            v-for="(item,index) in tagList"
+            :value="item.tagname"
+            :key="index"
+            :label="item.tagname"
+            @click.native='changeTag(item.tagname)'
+          >{{ item.tagname }}</el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="封面图" prop="poster_src">
         <UploadImg action="/api/upload" @getImgURL="getImgURL" />
-      </FormItem>
-      <FormItem label="文章正文" prop="content">
+      </el-form-item>
+      <el-form-item label="文章正文" prop="content">
         <mavon-editor v-model="articleForm.content" ref="md" @change="mavonChange" style="min-height: 600px" />
-      </FormItem>
-    </Form>
-    <Button class="btn" @click="handleSubmit" icon="ios-add" type="primary">提交</Button>
+      </el-form-item>
+    </el-form>
+    <el-button class="btn" @click=" handleSubmit" icon="ios-add" type="primary">提交</el-button>
   </div>
 </template>
 
@@ -51,6 +56,7 @@ export default {
   },
   data() {
     return {
+      value: '',
       tagList: [],
       poster_src: "",
       content: "", // 输入的markdown
@@ -131,13 +137,14 @@ export default {
             tag: data.tag,
             content: this.html
           }
-          addArticle(params).then(res => {
-            if(res.code == 200) {
-              this.$Message.success("添加成功!")
-            } else {
-              this.$Message.error("添加失败!");
-            }
-          })
+          console.log(params)
+          // addArticle(params).then(res => {
+          //   if(res.code == 200) {
+          //     this.$Message.success("添加成功!")
+          //   } else {
+          //     this.$Message.error("添加失败!");
+          //   }
+          // })
         }
       });
     }

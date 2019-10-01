@@ -2,12 +2,14 @@
   <div>
     <PageTable
       title="文章列表"
-      :columns="columns"
-      :data="tbData"
-      :filters="filters"
-      :addBtn="{label: '添加文章',status: true, onAdd: addArticle}"
+      :tbData='tbData'
+      :columns='columns'
+      :filters='filters'
+      :addBtn="{label: '添加文章',onAdd: addArticle}"
       :onFilter="handleFilter"
       :onReset="handleReset"
+      @handleEdit='handleEdit'
+      @handleDelete='handleDelete'
     />
   </div>
 </template>
@@ -21,19 +23,19 @@ export default {
       tbData: [],
       columns: [
         {
-          title: "文章id",
+          label: "文章id",
           key: "_id"
         },
         {
-          title: "文章标题",
+          label: "文章标题",
           key: "title"
         },
         {
-          title: "文章描述",
+          label: "文章描述",
           key: "desc"
         },
         {
-          title: "封面图",
+          label: "封面图",
           key: "poster",
           // render: params => {
           //   return (
@@ -44,52 +46,42 @@ export default {
           // }
         },
         {
-          title: "文章分类",
+          label: "文章分类",
           key: "tag"
         },
         {
-          title: "创建时间",
+          label: "创建时间",
           key: "create_time"
-        },
-        {
-          title: "操作",
-          key: "action",
-          width: 150,
-          align: "center",
-          render: params => {
-            return (
-              <div class="action">
-                <span onClick={() => this.editArticle(params)}>编辑</span>
-                <span onClick={() => this.deleteArticle(params)}>删除</span>
-              </div>
-            );
-          }
         }
       ],
       filters: [
         {
-          lable: "标题",
+          label: "标题",
+          value: "title",
           type: "Input"
         },
         {
-          lable: "标签",
+          label: "标签",
+          value: "tag",
           type: "Input"
         },
         {
-          lable: "类型",
+          label: "类型",
+          value: "type",
           type: "Input"
         },
         {
-          lable: "状态",
+          label: "状态",
           type: "Select",
-          status: [
+          value: "",
+          selectList: [ 
             {
               value: "",
               label: "全部"
             },
             {
               value: 0,
-              lable: "当前"
+              label: "当前"
             }
           ]
         }
@@ -98,10 +90,19 @@ export default {
   },
   created() {
     this.getData()
+    // console.log(this.$route)
   },
   methods: {
+    handleEdit(id) {
+      console.log(id)
+    },
+    handleDelete(id) {
+      console.log(id)
+    },
     handleFilter() {
       console.log(11);
+      this.$router.go(-1)
+      console.log(this.$route)
     },
     handleReset() {
       console.log(22);

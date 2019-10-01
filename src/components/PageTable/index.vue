@@ -1,85 +1,264 @@
 <template>
-  <div>
-    <div class="title">{{title}}</div>
-    <div class="addBtn" v-if='addBtn.status'>
-      <Button type='primary' icon='ios-add' @click='addBtn.onAdd'>{{addBtn.label}}</Button>
+  <div class='page'>
+    <!-- 标题 -->
+    <div class="title">
+      <h2>{{title}}</h2>
     </div>
-    <Row :gutter="30">
-      <Col span="8" v-for="(item,index) in filters" :key='index'>
-        <Form :model="formLeft" label-position="left" :label-width="60" v-if="item.type == 'Input'">
-          <FormItem :label="item.lable">
-            <Input v-model="formLeft.input1" />
-          </FormItem>
-        </Form>
-        <Form :model="formLeft" label-position="left" :label-width="60" v-if="item.type == 'Select'">
-          <FormItem label="City" prop="city" v-if="item.type == 'Select'">
-            <Select v-model="formLeft.input1" placeholder="Select your city" >
-              <Option v-for="(statuitem,index) in item.status" :key="index" :value="statuitem.value">{{statuitem.lable}}</Option>
-            </Select>
-        </FormItem>
-        </Form>
-      </Col>
-      <Col span="8">
-        <Button type='primary' @click='handleFilter'>筛选</Button>
-        <Button type='primary' @click='handleReset'>重置</Button>
-      </Col>
-    </Row>
-    <Table border :columns="columns" :data="data"></Table>
-    <div class="page">
-      <Page :total="100" show-sizer show-elevator show-total />
+    <!-- 添加按钮 -->
+    <div class="addBtn" v-if='addBtn'>
+      <el-button type='primary' icon='el-icon-plus' @click='addBtn.onAdd'>{{addBtn.label}}</el-button>
+    </div>
+    <!-- 筛选内容 -->
+    <div class="filter">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+      >
+        <el-form-item
+          v-for='(filter, index) in dataFilters'
+          :key='index'
+          :label="filter.label"
+        >
+          <!-- 单选框 -->
+          <el-input
+            v-if="filter.type === 'Input'"
+            placeholder="请输入"
+            v-model="filter.value"
+          ></el-input>
+          <!-- 多选框 -->
+          <el-select
+            v-if="filter.type === 'Select'"
+            placeholder="请选择"
+            v-model='value'
+          >
+            <el-option
+              v-for='(item, index) in filter.selectList'
+              :key='index' 
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <!-- 时间选择器 -->
+          <el-date-picker
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :picker-options="pickerOptions2"
+            v-if="filter.type === 'datePicker'"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleFilter">筛选</el-button>
+          <el-button type="primary" @click="handleReset">重置</el-button>
+          <div class='collapse'>
+            <span>收起</span>
+            <i class='iconfont icon-arrow_u'></i>
+            <span>展开</span>
+            <i class='iconfont icon-arrow_d'></i>
+          </div>
+        </el-form-item>
+      </el-form>
+    </div>
+    <!-- 表格内容 -->
+    <div class='table'>
+      <el-table
+        :data='tbData'
+        fit
+        style="width: 100%"
+        :header-cell-style="{background:'#fafafa',color:'#000',fontWeight: 600}"
+      >
+        <el-table-column
+          v-for='(column, index) in datacColumns'
+          :key='index'
+          :prop="column.key"
+          :label="column.label"
+          :width="column.width"
+          align='center'
+          fit
+        >
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="100">
+          <template slot-scope="scope">
+            <el-button @click.native="tableEdit(scope.row._id)" type="text" size="small">编辑</el-button>
+            <el-button @click.native="tableDelete(scope.row._id)" type="text" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <!-- 分页内容 -->
+    <div class="pageFooter">
+      <div class='pagination'>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="1"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+
+
 export default {
-  props: ["title","columns","addBtn","filters", "data",'onFilter','onReset'],
-  data() {
+  name: 'PageTable',
+  props: ['tbData','columns','addBtn','title','filters','onFilter','onReset'],
+  data () {
     return {
-      formLeft: {
-        input1: "",
-        input2: "",
-        input3: ""
-      }
-    };
+      value: '',
+      datacColumns: this.columns || [],
+      column: [],
+      total: 4,
+      dataTitle: this.title,
+      dataFilters: this.filters,
+      pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        }
+    }
   },
   mounted() {
-
+    // console.log(this.dataFilters)
   },
   methods: {
+    tableEdit(id) {
+      this.$emit('handleEdit',id)
+    },
+    tableDelete(id) {
+      this.$emit('handleDelete',id)
+    },
     handleFilter() {
       this.onFilter()
     },
     handleReset() {
       this.onReset()
     },
-    show(index) {
-      this.$Modal.info({
-        title: "User Info",
-        content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
-      });
+    // column: this.dataColumns.map((item, index) => {
+    //   item.dataIndex
+    // })
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
     },
-    remove(index) {
-      this.data6.splice(index, 1);
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
     }
+  },
+  components: {
+   
   }
-};
+}
 </script>
 
-<style lang="scss" scoped>
-.title {
-  display: inline-block;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-.addBtn {
-  float: right;
-  margin-top: -4px;
-}
+<style lang='scss'>
+@import '@/assets/css/common.scss';
 .page {
-  float: right;
-  margin-top: 20px;
-  font-size: 12px;
+  .el-input-inner {
+    height: 30px;
+  }
+  background: #fff;
+  .title {
+     display: inline-block;
+    // height: 60px;
+    margin-bottom: 20px;
+    h2 {
+      font-size: 18px;
+      color: $Black;
+      font-weight: bold;
+      padding: 10px 0 10px 36px;
+    }
+  }
+  .addBtn {
+    float: right;
+    margin-right: 40px;
+    // margin-top: -4px;
+  }
+  .filter {
+    box-sizing: border-box;
+    padding: $tablePadding;
+    width: 100%;
+    .el-form {
+      .el-form-item {
+        box-sizing: border-box;
+        width: 33.33333%;
+        display: flex;
+        float: left;
+        margin-right: 0;
+        padding: 0 12px;
+        &__content {
+          flex: 1;
+          .el-select {
+            width: 100%;
+          }
+          .el-date-editor.el-input__inner {
+            // width: 100%;
+            height: 32px;
+          }
+        }
+        &__label {
+          width: 100px;
+          text-align: left;
+          padding: 0 20px 0 0;
+        }
+        .collapse {
+          display: inline-block;
+          margin-left: 18px;
+          color: $Blue;
+          transition: all 400ms ease;
+          &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+  .table {
+    padding: $tablePadding;
+  }
+  .pageFooter {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: $tablePadding;
+    .pagination {
+      float: right;
+    }
+  }
 }
 </style>
