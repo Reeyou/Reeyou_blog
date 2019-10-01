@@ -35,7 +35,7 @@ export const routers = [
       path: '/articleManage',
       name: 'articleManage',
       hidden: false,
-      meta: { title: '数据管理', icon: 'el-icon-reading' },
+      meta: { title: '内容管理', icon: 'el-icon-collection' },
       component: Layout,
       children: [
         {
@@ -81,7 +81,7 @@ export const routers = [
         {
           path: '/userManage/accountData',
           name: 'accountData',
-          meta: { title: '账户管理', icon: 'el-icon-collection-tag', roles: ['admin'] },
+          meta: { title: '账户管理', icon: 'el-icon-user', roles: ['admin'] },
           component: () => import('@/pages/User')
         }
       ]

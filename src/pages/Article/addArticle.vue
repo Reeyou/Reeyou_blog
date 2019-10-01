@@ -8,12 +8,14 @@
       ref="articleForm"
       :model="articleForm"
       :rules="articleRule"
-      label-width="100px" class="demo-ruleForm"
+      label-width="100px"
+      class="addForm"
+      label-position="left" 
     >
-      <el-form-item label="标题" prop="title" style="width: 500px">
-        <el-input v-model="articleForm.title" placeholder="请输入文章标题" />
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="articleForm.title" placeholder="请输入文章标题"/>
       </el-form-item>
-      <el-form-item label="文章描述" prop="desc" style="width: 500px">
+      <el-form-item label="文章描述" prop="desc">
         <el-input
           v-model="articleForm.desc"
           type="textarea"
@@ -21,7 +23,7 @@
           placeholder="请输入文章描述"
         />
       </el-form-item>
-      <el-form-item label="标签" prop="tag" style="width: 500px">
+      <el-form-item label="标签" prop="tag">
         <el-select style="width:200px" v-model='value' class='tagList'>
           <el-option
             v-for="(item,index) in tagList"
@@ -35,7 +37,7 @@
       <el-form-item label="封面图" prop="poster_src">
         <UploadImg action="/api/upload" @getImgURL="getImgURL" />
       </el-form-item>
-      <el-form-item label="文章正文" prop="content">
+      <el-form-item class='editor' label="文章正文" prop="content">
         <mavon-editor v-model="articleForm.content" ref="md" @change="mavonChange" style="min-height: 600px" />
       </el-form-item>
     </el-form>
@@ -155,7 +157,11 @@ export default {
 <style lang="scss" scoped>
 // @import "../../assets/css/markdown.css";
 .addContent {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 30px 0 20px;
   .title {
+    padding-left: 10px;
     h2 {
       // border-bottom: none;
       font-size: 20px;
@@ -167,11 +173,37 @@ export default {
       margin: 10px 0 20px 0;
     }
   }
+  .addForm {
+    .el-input,.el-textarea {
+      width: 400px;
+    }
+  }
   .btn {
     margin-left: 80px;
   }
 }
 .v-note-wrapper {
   z-index: 0;
+}
+@media screen and(max-width: 900px) {
+  .addContent {
+    padding: 0;
+    .addForm {
+      .el-input,.el-textarea {
+        width: 100%;
+      }
+      .editor {
+        background: #000;
+        .el-form-item__label{
+          color: red;
+        }
+      }
+    }
+  }
+  .v-note-wrapper {
+    float: left;
+    min-width: 0; 
+    z-index: 0;
+  }
 }
 </style>

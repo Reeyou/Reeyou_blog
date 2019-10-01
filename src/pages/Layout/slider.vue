@@ -1,9 +1,14 @@
 <template>
   <div class='menuBar'>
+    <div class="system-info">
+      <img class="logo" src="@/assets/logo_bg.jpg" alt />
+      <i class='iconfont icon-mulu pc'></i>
+    </div>
      <el-menu
       class="el-menu-vertical-demo"
       router
       :default-active="currentRouter"
+      @select='handleChange'
     >
       <template
         v-for="item in routers"
@@ -36,6 +41,8 @@
 
 <script>
 import { routers } from '../../router';
+import { mapState, mapMutations } from 'vuex'
+import isMobile from '@/utils/isMobile'
   export default {
     data() {
       return {
@@ -45,11 +52,43 @@ import { routers } from '../../router';
     },
     created() {
       sessionStorage.setItem('currentRouter',this.$route.path)
+      // if (isMobile()) {
+      //   alert("手机端");
+      // } else {
+      //   alert("pc端");
+      // }
     },
     watch: {
       $route(to,from) {
         sessionStorage.setItem('currentRouter',to.path)
+      },
+      // 监听屏幕尺寸变化
+      screenWidth: function(val) {
+        console.log(val)
+        val < 900 ? this.MENU_VISIBLE(false) : this.MENU_VISIBLE(true)
+         console.log(this.menuVisible)
       }
+    },
+    computed: {
+      ...mapState({
+        screenWidth: state => state.screenWidth,
+        menuVisible: state => state.menuVisible,
+        isMobile: state => state.isMobile
+      })
+    },
+    methods: {
+       ...mapMutations([
+        'MENU_VISIBLE',
+        'IS_MOBILE'
+      ]),
+      handleChange() {
+        if(isMobile()) {
+        // 异步回调改变菜单 打开状态
+        setTimeout(() => {
+          this.$store.commit('MENU_VISIBLE',false)
+        },100)
+        }
+      },
     }
   }
 </script>
@@ -58,13 +97,36 @@ import { routers } from '../../router';
 .menuBar {
   position: fixed;
   width: 200px;
-  margin-top: 64px;
-  height: calc(100vh - 65px);
-  border-right: 1px solid #e6e6e6;
+  height: 100vh;
+  box-shadow: 7px 0 60px rgba(0,0,0,.05);
   background: #fff;
-  z-index: 20;
+  z-index: 100;
+  .system-info {
+    text-align: left;
+    padding: 0 20px 0 4px;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    z-index: 999;
+    > i {
+      font-size: 30px;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      margin-top: -15px;
+      color: #000;
+    }
+    .pc {
+
+    }
+    .logo {
+      height: 64px;
+      margin-left: 20px;
+      margin-right: 10px;
+    }
+  }
   .el-menu {
     border-right: none;
+    box-shadow: 0.46875rem 0 6px rgba(4,9,20,.02);
   }
   .el-menu-slide {
     border-right: none;
@@ -73,6 +135,16 @@ import { routers } from '../../router';
       width: 24px;
       text-align: center;
       font-size: 18px;
+    }
+  }
+}
+@media screen and(max-width: 900px) {
+  .menuBar {
+    .system-info {
+      text-align: left;
+      .pc {
+        display: none;
+      }
     }
   }
 }

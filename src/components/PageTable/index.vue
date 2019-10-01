@@ -83,6 +83,7 @@
         </el-table-column>
         <el-table-column
           fixed="right"
+          align='center'
           label="操作"
           width="100">
           <template slot-scope="scope">
@@ -258,6 +259,73 @@ export default {
     padding: $tablePadding;
     .pagination {
       float: right;
+    }
+  }
+}
+@media screen and (max-width: 1200px){
+  .page {
+    .filter {
+      .el-form {
+      .el-form-item {
+        position: relative;
+        &__label {
+          width: 60px;
+        }
+        .el-button {
+          padding: 12px 14px;
+        }
+        .collapse {
+          position: absolute;
+          top: 0;
+          right: -40px;
+          // display: inline-block;
+          margin-left: 18px;
+          color: $Blue;
+          transition: all 400ms ease;
+          &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  // el-button {
+  //     padding: 0;
+  //   }
+  .page {
+    .title {
+      h2 {
+        padding:0 0 0 10px;
+      }
+    }
+     .addBtn {
+      margin-right: 20px;
+      margin-top: -6px;
+      .el-button {
+      padding: 8px 10px;
+    }
+    }
+    .filter {
+      .el-form {
+        .el-form-item {
+          display: flex;
+          width: 100%;
+          padding: 0;
+        }
+        &__label {
+          flex: 0 0 25%;
+        }
+        &__content {
+          flex: 1;
+        }
+      }
+    }
+    .table {
+      padding: 0;
     }
   }
 }

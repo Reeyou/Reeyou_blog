@@ -23,20 +23,19 @@ export default {
       tbData: [],
       columns: [
         {
-          label: "文章id",
-          key: "_id"
-        },
-        {
           label: "文章标题",
-          key: "title"
+          key: "title",
+          width: 300
         },
         {
           label: "文章描述",
-          key: "desc"
+          key: "desc",
+          width: 300
         },
         {
           label: "封面图",
           key: "poster",
+          width: 200
           // render: params => {
           //   return (
           //     <div class="action">
@@ -47,11 +46,13 @@ export default {
         },
         {
           label: "文章分类",
-          key: "tag"
+          key: "tag",
+          width: 140
         },
         {
           label: "创建时间",
-          key: "create_time"
+          key: "create_time",
+          width: 200
         }
       ],
       filters: [
@@ -90,7 +91,6 @@ export default {
   },
   created() {
     this.getData()
-    // console.log(this.$route)
   },
   methods: {
     handleEdit(id) {
