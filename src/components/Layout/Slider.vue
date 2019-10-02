@@ -62,16 +62,9 @@ import isMobile from '@/utils/isMobile'
       $route(to,from) {
         sessionStorage.setItem('currentRouter',to.path)
       },
-      // 监听屏幕尺寸变化
-      screenWidth: function(val) {
-        console.log(val)
-        val < 900 ? this.MENU_VISIBLE(false) : this.MENU_VISIBLE(true)
-         console.log(this.menuVisible)
-      }
     },
     computed: {
       ...mapState({
-        screenWidth: state => state.screenWidth,
         menuVisible: state => state.menuVisible,
         isMobile: state => state.isMobile
       })

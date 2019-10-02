@@ -8,14 +8,7 @@
     <el-main>
       <!-- 面包屑 -->
       <div class="bread">
-        <i class="el-icon-house"></i>
-        <el-breadcrumb class="breadcrumb" separator="/">
-          <el-breadcrumb-item
-            v-for='(item,index) in breadItems'
-            :key='index'
-            :to='{path:item.path}'
-          >{{item.title}}</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Breadcrumb />
       </div>
       <!-- 页面内容 -->
       <div class="content">
@@ -26,52 +19,34 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import Breadcrumb from './Breadcrumb'
   export default {
-    data() {
-      return {
-        breadItems: []
-      }
-    },
-    created() {
-      this.initBreadCrumb(this.$route)
-    },
-    watch:{
-      // 监听路由改变
-      $route(to,from){
-        this.initBreadCrumb(to)
-      },
-    },
-    mounted() {
-      
-    },
     computed: {
       ...mapState({
+        screenWidth: state => state.screenWidth,
         menuVisible: state => state.menuVisible
       }),
     },
-    methods: {
-      initBreadCrumb(routers) {
-        // 初始化面包屑数组
-        let currentBread = [{path: '/', title: '后台管理系统'}]
-        for(let index in routers.matched) {
-          if(routers.matched[index].meta && routers.matched[index].meta.title) {
-            currentBread.push({
-              path: routers.matched[index].path ? routers.matched[index].path : "/",
-              title: routers.matched[index].meta.title
-            })
-          }
-        }
-        this.breadItems = currentBread
+    watch: {
+      // 监听屏幕尺寸变化
+      screenWidth: function(val) {
+        val < 900 ? this.MENU_VISIBLE(false) : this.MENU_VISIBLE(true)
       }
+    },
+    methods: {
+      ...mapMutations([
+        'MENU_VISIBLE'
+      ]),
+    },
+    components: {
+      Breadcrumb
     }
-    
   }
 </script>
 
 <style lang="scss" scoped>
 .layout-content {
-  // min-width: 1000px;
   height: 100%;
   .sider {
     width: 200px;
@@ -93,14 +68,6 @@ import { mapState } from 'vuex'
       position: fixed;
       z-index: 10;
       padding-left: 30px;
-      i {
-        font-size: 16px;
-        cursor: pointer;
-        padding-left: 16px;
-      }
-      .breadcrumb {
-        padding-left: 4px;
-      }
     }
     .content {
       margin-top: 60px;

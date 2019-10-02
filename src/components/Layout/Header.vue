@@ -43,6 +43,7 @@ import { mapMutations, mapState } from 'vuex'
       logout() {
         this.$router.push('./login')
         sessionStorage.removeItem('currentRouter')
+        sessionStorage.removeItem('token')
       },
       openMenu() {
         this.muluVisible = false
@@ -57,7 +58,6 @@ import { mapMutations, mapState } from 'vuex'
 </script>
 
 <style lang="scss" scoped>
-@import './media.scss';
 .header {
   width: 100%;
   background: #fff;

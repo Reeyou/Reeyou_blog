@@ -1,12 +1,42 @@
 import axios from 'axios'
 import qs from 'qs'
 
+const instance = axios.create({
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  },
+  timeout: 10000
+})
+instance.interceptors.request.use(
+  config => {
+    if(sessionStorage.token) {
+      config.headers.authorization = sessionStorage.token;
+    }
+    return config
+  },
+  err => {
+    return Promise.reject(err)
+  }
+)
+instance.interceptors.response.use(
+  res => {
+    return res
+  },
+  err => {
+    if (err) {
+      switch (err.response.code) {
+        case 401:
+        sessionStorage.removeItem('token')
+        router.replace({
+            path: 'login',
+        })
+        break;
+      }
+  }
+  return Promise.reject(err.response.data)   // 返回接口返回的错误信息
+  }
+)
 export default function request(url, options) {
-
-  axios.defaults.timeout = 10000;
-  // post请求头
-  // axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-  // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
   // 请求状态码
   const responseCode = {
     "200": "服务请求成功",
@@ -23,16 +53,16 @@ export default function request(url, options) {
 
   //请求添加Token
   const option = {...options}
-  if(option.method == 'POST') {
-    return Post(url, option.body);
-  } else {
-    return Get(url);
-  }
 
+  if(option.method == 'POST') {
+    return POST(url, option.body);
+  } else {
+    return GET(url);
+  }
   //封装Get方法
-  function Get(url) {
+  function GET(url) {
     return new Promise((resolve, reject) => {
-      axios.get(url)
+      instance.get(url)
       .then(res => {
         resolve(res.data);
       })
@@ -41,14 +71,12 @@ export default function request(url, options) {
       })
     })
   }
-
   //封装Post方法
   //qs.stringify()将对象 序列化成Url的形式，以&进行拼接
   //qs.parse()将Url解析成对象的形式
-  function Post(url,params) {
-    console.log(url)
+  function POST(url,params) {
     return new Promise((resolve, reject) => {
-      axios.post(url, qs.stringify(params))
+      instance.post(url, qs.stringify(params))
       .then(res => {
         return resolve(res.data);
       })

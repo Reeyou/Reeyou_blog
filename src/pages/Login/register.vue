@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="container">
         <h2>Reeyou博客后台管理平台</h2>
-        <h4>用户登录</h4>
+        <h4>用户注册</h4>
         <form action="">
           <div class='input'>
             <i class='iconfont icon-user'></i>
@@ -14,11 +14,15 @@
             <i class='iconfont icon-password'></i>
             <input autocomplete="off" v-model='password' type="password" placeholder="登录密码">
           </div>
+          <div class='input'>
+            <i class='iconfont icon-password'></i>
+            <input autocomplete="off" v-model='password' type="password" placeholder="确认密码">
+          </div>
           <p class='error_msg' v-show='error_msg'>{{error_password}}</p>
-          <button @click='login' type='button'>登录</button>
+          <button @click='login' type='button'>注册</button>
           <div class="tips">
             <!-- <span class='first'><a href="/#/resetPwd">忘记密码？</a></span> -->
-            <span class='last'>没有账号？<a href="/#/register">前往注册</a></span>
+            <span class='last'>已有账号？<a href="/#/register">立即登录</a></span>
           </div>
         </form>
       </div>
