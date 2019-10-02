@@ -9,3 +9,6 @@ export async function login(params) {
     }
   })
 }
+export async function refreshToken() {
+  return request('/api/admin/refreshToken')
+}

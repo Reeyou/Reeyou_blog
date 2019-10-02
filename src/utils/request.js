@@ -20,15 +20,24 @@ instance.interceptors.request.use(
 )
 instance.interceptors.response.use(
   res => {
-    return res
+    const { authorization } = res.headers;
+    //如果token存在则存在localStorage
+    if(authorization) {
+      sessionStorage.setItem('token', authorization);
+    } 
+    return res;
   },
   err => {
     if (err) {
-      switch (err.response.code) {
+      switch (err.response.data.code) {
+        // 状态码为200  token失效
+        case 200:
+          const { authorization } = err.response.headers;
+          authorization && sessionStorage.setItem('token', authorization);
         case 401:
         sessionStorage.removeItem('token')
         router.replace({
-            path: 'login',
+          path: 'login',
         })
         break;
       }
