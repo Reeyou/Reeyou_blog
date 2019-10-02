@@ -110,7 +110,7 @@ export default {
     getTagData() {
       getTagList().then(res => {
         if(res.code == 200) {
-          this.tagList = res.data
+          this.tagList = res.data.list
         }
       })
     },

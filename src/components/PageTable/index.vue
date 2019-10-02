@@ -66,13 +66,13 @@
     <!-- 表格内容 -->
     <div class='table'>
       <el-table
-        :data='tbData'
+        :data='tbData.list'
         fit
         style="width: 100%"
         :header-cell-style="{background:'#fafafa',color:'#000',fontWeight: 600}"
       >
         <el-table-column
-          v-for='(column, index) in datacColumns'
+          v-for='(column, index) in dataColumns'
           :key='index'
           :prop="column.key"
           :label="column.label"
@@ -80,6 +80,12 @@
           align='center'
           fit
         >
+          <img
+            :style="{width: '100px', height: '100px'}"
+            v-if="column.key == 'poster'"
+            :src="tbData.list[1].poster"
+            alt=""
+          >
         </el-table-column>
         <el-table-column
           fixed="right"
@@ -97,13 +103,13 @@
     <div class="pageFooter">
       <div class='pagination'>
         <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+          @size-change="handleChangeSize"
+          @current-change="handleChangePage"
           :current-page="1"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :page-sizes="[7, 15, 30]"
+          :page-size="8"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :total="tbData.total">
         </el-pagination>
       </div>
     </div>
@@ -119,9 +125,7 @@ export default {
   data () {
     return {
       value: '',
-      datacColumns: this.columns || [],
-      column: [],
-      total: 4,
+      dataColumns: this.columns || [],
       dataTitle: this.title,
       dataFilters: this.filters,
       pickerOptions2: {
@@ -169,14 +173,11 @@ export default {
     handleReset() {
       this.onReset()
     },
-    // column: this.dataColumns.map((item, index) => {
-    //   item.dataIndex
-    // })
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    handleChangeSize(pageSize) {
+      this.$emit('handelChangeSize',pageSize)
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+    handleChangePage(limit) {
+      this.$emit('handelChangePage',limit)
     }
   },
   components: {

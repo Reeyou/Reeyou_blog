@@ -10,6 +10,8 @@
       :onReset="handleReset"
       @handleEdit='handleEdit'
       @handleDelete='handleDelete'
+      @handelChangeSize='handelChangeSize'
+      @handelChangePage='handelChangePage'
     />
     <el-dialog title="添加标签" width='500px' :visible.sync="tagAddVisble">
     <el-form :model="tagForm" ref='tagForm'>
@@ -83,16 +85,24 @@ export default {
     this.getData()
   },
   methods: {
+    handelChangePage(pageSize) {
+     this.getData(pageSize)
+    },
+    handelChangeSize(limit) {
+     this.getData(1,limit)
+    },
     handleFilter() {
       console.log(11);
     },
     handleReset() {
       console.log(22);
     },
-    getData() {
-      getTagList().then(res => {
-      this.tbData = res.data
-    })
+    getData(pageSize = 1, limit = 7) {
+      getTagList({pageSize,limit}).then(res => {
+        if(res.code == 200) {
+          this.tbData = res.data
+        }
+      })
     },
     addTag() {
       this.tagAddVisble = true;
@@ -122,10 +132,13 @@ export default {
     editTag() {
       this.tagEditVisble = true
     },
-    handleEditOk() {
-      updateTagName(params).then(res => {
+    handleEdit() {
+      // updateTagName(params).then(res => {
 
-      })
+      // })
+    },
+    handleEditOk() {
+
     },
     handleEditCancel() {
 

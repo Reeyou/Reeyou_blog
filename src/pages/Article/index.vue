@@ -10,6 +10,8 @@
       :onReset="handleReset"
       @handleEdit='handleEdit'
       @handleDelete='handleDelete'
+      @handelChangeSize='handelChangeSize'
+      @handelChangePage='handelChangePage'
     />
   </div>
 </template>
@@ -25,17 +27,17 @@ export default {
         {
           label: "文章标题",
           key: "title",
-          width: 300
+          width: 400
         },
         {
           label: "文章描述",
           key: "desc",
-          width: 300
+          width: 400
         },
         {
           label: "封面图",
           key: "poster",
-          width: 200
+          width: 300
           // render: params => {
           //   return (
           //     <div class="action">
@@ -47,7 +49,7 @@ export default {
         {
           label: "文章分类",
           key: "tag",
-          width: 140
+          width: 200
         },
         {
           label: "创建时间",
@@ -99,6 +101,12 @@ export default {
     handleDelete(id) {
       console.log(id)
     },
+    handelChangePage(pageSize) {
+     this.getData(pageSize)
+    },
+    handelChangeSize(limit) {
+     this.getData(1,limit)
+    },
     handleFilter() {
       console.log(11);
       this.$router.go(-1)
@@ -110,8 +118,8 @@ export default {
     addArticle() {
       this.$router.push("/addArticle");
     },
-    getData() {
-      getArticleList().then(res => {
+    getData(pageSize = 1, limit = 10) {
+      getArticleList({pageSize,limit}).then(res => {
         this.tbData = res.data
       })
     },

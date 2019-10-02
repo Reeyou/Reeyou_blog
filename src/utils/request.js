@@ -2,9 +2,9 @@ import axios from 'axios'
 import qs from 'qs'
 
 const instance = axios.create({
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  },
+  // headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  // },
   timeout: 10000
 })
 instance.interceptors.request.use(
@@ -31,7 +31,7 @@ instance.interceptors.response.use(
     if (err) {
       switch (err.response.data.code) {
         // 状态码为200  token失效
-        case 200:
+        case 201:
           const { authorization } = err.response.headers;
           authorization && sessionStorage.setItem('token', authorization);
         case 401:
