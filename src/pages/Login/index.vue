@@ -18,7 +18,7 @@
           <button @click='login' type='button'>登录</button>
           <div class="tips">
             <!-- <span class='first'><a href="/#/resetPwd">忘记密码？</a></span> -->
-            <span class='last'>没有账号？<a href="/#/register">前往注册</a></span>
+            <span class='last'>没有账号？<a href="/register">前往注册</a></span>
           </div>
         </form>
       </div>
@@ -34,8 +34,6 @@ export default {
   name: 'login',
   data () {
     return {
-      welcomeTip: '欢迎登录',
-      backTip: '返回首页',
       error_user: '请输入用户名',
       error_password: '请输入密码',
       error_msg: false,
@@ -51,6 +49,7 @@ export default {
       }
       login(params).then(res => {
         if(res.code == 200) {
+          localStorage.setItem('userinfo', JSON.stringify(res.data.userinfo))
           sessionStorage.setItem('token',`Bearer ${res.data.token}`)
           this.$router.push({path: '/'})
         }

@@ -18,6 +18,13 @@ export const routers = [
     component: () => import('@/pages/Login')
   },
   {
+    path: '/register',
+    name: 'register',
+    hidden: true,
+    meta: { title: '系统注册' },
+    component: () => import('@/pages/Login/register')
+  },
+  {
     path: "/",
     name: 'Layout',
     component: Layout,
@@ -94,7 +101,7 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   const loginState = sessionStorage['token'] ? true : false
-  if(to.path == '/login') {
+  if(to.path == '/login' || to.path == '/register') {
     next()
   } else {
     if(loginState) {

@@ -24,6 +24,7 @@
 
 <script>
 import dataURLtoBlob from "@/utils/dataURLtoBlob";
+import { instance } from '@/utils/request'
 export default {
   props: ['action'],
   data() {
@@ -49,7 +50,8 @@ export default {
         let formdata = new FormData()
         let blob = dataURLtoBlob(this.result)
         formdata.append("file", blob)
-        self.$axios.post(self.action, formdata).then(res => {
+
+        instance.post(self.action,formdata).then(res => {
           self.imgData = res.data.data
           self.$emit('getImgURL',self.imgData);
         })

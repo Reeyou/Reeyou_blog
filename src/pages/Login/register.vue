@@ -19,10 +19,10 @@
             <input autocomplete="off" v-model='password' type="password" placeholder="确认密码">
           </div>
           <p class='error_msg' v-show='error_msg'>{{error_password}}</p>
-          <button @click='login' type='button'>注册</button>
+          <button @click='register' type='button'>注册</button>
           <div class="tips">
             <!-- <span class='first'><a href="/#/resetPwd">忘记密码？</a></span> -->
-            <span class='last'>已有账号？<a href="/#/register">立即登录</a></span>
+            <span class='last'>已有账号？<a href="/login">立即登录</a></span>
           </div>
         </form>
       </div>
@@ -32,14 +32,12 @@
 </template>
 
 <script>
-import { login } from '@/service/user'
+import { register } from '@/service/user'
 // import { mapMutations } from 'vuex'
 export default {
   name: 'login',
   data () {
     return {
-      welcomeTip: '欢迎登录',
-      backTip: '返回首页',
       error_user: '请输入用户名',
       error_password: '请输入密码',
       error_msg: false,
@@ -48,15 +46,15 @@ export default {
     }
   },
   methods: {
-    login() {
+    register() {
       const params = {
         username: this.username,
         password: this.password
       }
-      login(params).then(res => {
+      register(params).then(res => {
         if(res.code == 200) {
-          sessionStorage.setItem('token',res.data.token)
-          this.$router.push({path: '/'})
+          // sessionStorage.setItem('token',res.data.token)
+          this.$router.push({path: '/login'})
         }
       })
     }

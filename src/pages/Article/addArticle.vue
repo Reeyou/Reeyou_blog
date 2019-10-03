@@ -35,7 +35,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="封面图" prop="poster_src">
-        <UploadImg action="/api/upload" @getImgURL="getImgURL" />
+        <UploadImg
+          action="/api/upload"
+          @getImgURL="getImgURL"
+        />
       </el-form-item>
       <el-form-item class='editor' label="文章正文" prop="content">
         <mavon-editor v-model="articleForm.content" ref="md" @change="mavonChange" style="min-height: 600px" />
@@ -139,14 +142,13 @@ export default {
             tag: data.tag,
             content: this.html
           }
-          console.log(params)
-          // addArticle(params).then(res => {
-          //   if(res.code == 200) {
-          //     this.$Message.success("添加成功!")
-          //   } else {
-          //     this.$Message.error("添加失败!");
-          //   }
-          // })
+          addArticle(params).then(res => {
+            if(res.code == 200) {
+              // this.$Message.success("添加成功!")
+            } else {
+              // this.$Message.error("添加失败!");
+            }
+          })
         }
       });
     }

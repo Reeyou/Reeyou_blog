@@ -5,7 +5,7 @@
     <img class='logo' src="@/assets/logo_bg.jpg" alt="">
     <el-dropdown class="system-user">
       <span class="userinfo-inner">
-        <span class='name'>Reeyou</span>
+        <span>欢迎您</span> <span class='name'>{{userinfo.username}}</span>
         <img src="@/assets/logo.png" alt="">
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -22,10 +22,12 @@ import { mapMutations, mapState } from 'vuex'
     data() {
       return {
         scrrenWidth: '',
-        muluVisible: true
+        muluVisible: true,
+        userinfo: JSON.parse(localStorage.getItem('userinfo'))
       }
     },
     mounted() {
+      console.log(this.userinfo)
       window.onresize = () => {
         this.scrrenWidth = document.body.clientWidth
         this.$store.commit('SCREEN_WIDTH',this.scrrenWidth)
@@ -44,6 +46,7 @@ import { mapMutations, mapState } from 'vuex'
         this.$router.push('./login')
         sessionStorage.removeItem('currentRouter')
         sessionStorage.removeItem('token')
+        localStorage.removeItem('userinfo')
       },
       openMenu() {
         this.muluVisible = false
@@ -79,11 +82,17 @@ import { mapMutations, mapState } from 'vuex'
 .system-user {
   text-align: right;
   float: right;
-  padding-right: 16px;
+  padding-right: 40px;
   .userinfo-inner {
     color: #000;
     font-size: 16px;
     cursor: pointer;
+    span {
+      font-size: 14PX;
+    }
+    .name {
+      color: red;
+    }
     img {
       width: 40px;
       height: 40px;

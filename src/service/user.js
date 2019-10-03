@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import { request } from '@/utils/request'
 import formatParam from '@/utils/formatParam'
 
 export async function login(params) {
@@ -9,6 +9,11 @@ export async function login(params) {
     }
   })
 }
-export async function refreshToken() {
-  return request('/api/admin/refreshToken')
+export async function register(params) {
+  return request('/api/admin/register', {
+    method: 'POST',
+    body: {
+      ...params
+    }
+  })
 }

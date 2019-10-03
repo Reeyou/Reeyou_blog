@@ -45,7 +45,7 @@ instance.interceptors.response.use(
   return Promise.reject(err.response.data)   // 返回接口返回的错误信息
   }
 )
-export default function request(url, options) {
+function request(url, options) {
   // 请求状态码
   const responseCode = {
     "200": "服务请求成功",
@@ -94,4 +94,9 @@ export default function request(url, options) {
       })
     })
   }
+}
+
+export {
+  instance,
+  request
 }
