@@ -17,3 +17,6 @@ export async function register(params) {
     }
   })
 }
+export async function getUserList(params) {
+  return request(`/api/admin/getUserList?${formatParam(params)}`)
+}

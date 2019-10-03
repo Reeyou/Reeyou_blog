@@ -13,32 +13,19 @@
 
 <script>
 import PageTable from "@/components/PageTable";
+import { getUserList } from '@/service/user'
   export default {
     data() {
       return {
         tbData: [],
         columns: [
           {
-            label: "标签id",
-            key: "tag_id"
+            label: "用户名",
+            key: "username"
           },
           {
-            label: "标签名称",
-            key: "tagname"
-          },
-          {
-            label: "操作",
-            key: "action",
-            width: 150,
-            align: "center",
-            render: (params) => {
-              return (
-                <div class='action'>
-                  <span onClick={() => this.editTag(params)}>编辑</span>
-                  <span onClick={() => this.deleteTag(params)}>删除</span>
-                </div>
-              )
-            }
+            label: "用户角色",
+            key: "role"
           }
         ],
         filters: [
@@ -71,13 +58,21 @@ import PageTable from "@/components/PageTable";
         ]
       }
     },
+    created() {
+      this.getData()
+    },
     methods: {
       handleFilter() {
         console.log(1)
       },
       handleReset() {
         console.log(1)
-      }
+      },
+      getData(pageSize = 1, limit = 10) {
+        getUserList({pageSize,limit}).then(res => {
+          this.tbData = res.data
+        })
+      },
     },
     components: {
       PageTable

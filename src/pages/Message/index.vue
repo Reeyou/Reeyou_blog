@@ -13,32 +13,19 @@
 
 <script>
 import PageTable from "@/components/PageTable";
+import { getMessageList } from '@/service/message'
   export default {
     data() {
       return {
         tbData: [],
         columns: [
           {
-            label: "标签id",
-            key: "tag_id"
+            label: "用户",
+            key: "name"
           },
           {
-            label: "标签名称",
-            key: "tagname"
-          },
-          {
-            label: "操作",
-            key: "action",
-            width: 150,
-            align: "center",
-            render: (params) => {
-              return (
-                <div class='action'>
-                  <span onClick={() => this.editTag(params)}>编辑</span>
-                  <span onClick={() => this.deleteTag(params)}>删除</span>
-                </div>
-              )
-            }
+            label: "留言内容",
+            key: "content"
           }
         ],
         filters: [
@@ -70,6 +57,16 @@ import PageTable from "@/components/PageTable";
           }
         ]
       }
+    },
+    created() {
+      this.getData()
+    },
+    methods: {
+      getData(pageSize = 1, limit = 10) {
+        getMessageList({pageSize,limit}).then(res => {
+          this.tbData = res.data
+        })
+      },
     },
     components: {
       PageTable
