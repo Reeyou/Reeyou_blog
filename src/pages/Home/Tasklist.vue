@@ -40,9 +40,11 @@
         background-color: red;
         left: 10px;
       }
-      input {
-        vertical-align: baseline;
+      input[type=checkbox] {
         flex: 0 0 30px;
+        border: none;
+        background: #fff;
+        cursor: pointer;
       }
       .task {
         display: inline-block;

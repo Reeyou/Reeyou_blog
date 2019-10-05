@@ -1,8 +1,7 @@
 <template>
-  <div class='menuBar'>
+  <div class='menuBar' :style="{width: menuWidth}">
     <div class="system-info">
       <img class="logo" src="@/assets/logo_bg.jpg" alt />
-      <i class='iconfont icon-mulu pc'></i>
     </div>
      <el-menu
       class="el-menu-vertical-demo"
@@ -46,6 +45,7 @@ import isMobile from '@/utils/isMobile'
   export default {
     data() {
       return {
+        menuWidth: '240px',
         routers: routers,
         currentRouter: sessionStorage.getItem('currentRouter') ? sessionStorage.getItem('currentRouter') : '/',
       }
@@ -82,6 +82,7 @@ import isMobile from '@/utils/isMobile'
         },100)
         }
       },
+      
     }
   }
 </script>
@@ -89,7 +90,7 @@ import isMobile from '@/utils/isMobile'
 <style lang="scss" scoped>
 .menuBar {
   position: fixed;
-  width: 200px;
+  // width: 240px;
   height: 100vh;
   box-shadow: 7px 0 60px rgba(0,0,0,.05);
   background: #fff;

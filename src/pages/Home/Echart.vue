@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <chart ref="chart1" :options="orgOptions" :auto-resize="true"></chart>
+  <div >
+    <chart :style="{width: '480px',height: '342px'}" ref="chart1" :options="orgOptions" :auto-resize="true"></chart>
   </div>
 </template>
 

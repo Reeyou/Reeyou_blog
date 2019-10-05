@@ -2,6 +2,7 @@
   <div class='header'>
     <i v-if='muluVisible' class='iconfont icon-mulu1 mobile' @click='openMenu'></i>
     <i v-else class='iconfont icon-md-close mobile' @click='closeMenu'></i>
+    <i class='iconfont icon-mulu pc' @click='collapse'></i>
     <img class='logo' src="@/assets/logo_bg.jpg" alt="">
     <el-dropdown class="system-user">
       <span class="userinfo-inner">
@@ -48,6 +49,10 @@ import { mapMutations, mapState } from 'vuex'
         sessionStorage.removeItem('token')
         localStorage.removeItem('userinfo')
       },
+      collapse() {
+        console.log('collapse')
+        this.menuWidth = '100px'
+      },
       openMenu() {
         this.muluVisible = false
         this.MENU_VISIBLE(true)
@@ -77,6 +82,10 @@ import { mapMutations, mapState } from 'vuex'
     font-size: 30px;
     margin-left: 20px;
     color: #000;
+  }
+  .pc {
+    font-size: 30px;
+    margin-left: 200px;
   }
 }
 .system-user {

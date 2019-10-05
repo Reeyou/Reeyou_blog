@@ -1,7 +1,7 @@
 <template>
   <el-container class="layout-content">
     <!-- 左侧菜单 -->
-    <el-aside v-if='menuVisible' style='width: 200px' ref='slider' class='slider'>
+    <el-aside v-if='menuVisible' style='width: 240px' ref='slider' class='slider'>
       <slot name="left"></slot>
     </el-aside>
     <!-- 右侧页面 -->
@@ -48,9 +48,9 @@ import Breadcrumb from './Breadcrumb'
 <style lang="scss" scoped>
 .layout-content {
   height: 100%;
-  .sider {
-    width: 200px;
-  }
+  // .sider {
+  //   width: 200px;
+  // }
   .el-main {
     padding: 0;
     overflow: hidden;

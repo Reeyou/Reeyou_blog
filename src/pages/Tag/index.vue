@@ -53,7 +53,6 @@ export default {
       filters: [
         {
           label: "标题",
-          value: '',
           type: "Input"
         },
         {

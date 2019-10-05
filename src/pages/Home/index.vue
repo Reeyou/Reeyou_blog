@@ -240,9 +240,12 @@ export default {
     border-bottom: 1px solid black;
     p {
       display: inline-block;
+      i {
+        padding-right: 20px;
+      }
     }
     i {
-
+      
     }
   }
 }

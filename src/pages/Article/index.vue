@@ -49,7 +49,7 @@ export default {
         {
           label: "文章分类",
           key: "tag",
-          width: 200
+          width: 160
         },
         {
           label: "创建时间",
@@ -60,17 +60,14 @@ export default {
       filters: [
         {
           label: "标题",
-          value: "title",
           type: "Input"
         },
         {
           label: "标签",
-          value: "tag",
           type: "Input"
         },
         {
           label: "类型",
-          value: "type",
           type: "Input"
         },
         {

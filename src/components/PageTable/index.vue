@@ -6,7 +6,12 @@
     </div>
     <!-- 添加按钮 -->
     <div class="addBtn" v-if='addBtn'>
-      <el-button type='primary' icon='el-icon-plus' @click='addBtn.onAdd'>{{addBtn.label}}</el-button>
+      <el-button
+        :disabled="role !== 'admin'"
+        type='primary'
+        icon='el-icon-plus'
+        @click='addBtn.onAdd'
+      >{{addBtn.label}}</el-button>
     </div>
     <!-- 筛选内容 -->
     <div class="filter">
@@ -54,12 +59,12 @@
         <el-form-item>
           <el-button type="primary" @click="handleFilter">筛选</el-button>
           <el-button type="primary" @click="handleReset">重置</el-button>
-          <div class='collapse'>
+          <!-- <div class='collapse'>
             <span>收起</span>
             <i class='iconfont icon-arrow_u'></i>
             <span>展开</span>
             <i class='iconfont icon-arrow_d'></i>
-          </div>
+          </div> -->
         </el-form-item>
       </el-form>
     </div>
@@ -83,7 +88,7 @@
           <img
             :style="{width: '100px', height: '100px'}"
             v-if="column.key == 'poster'"
-            :src="tbData.list[1].poster"
+            :src="tbData.list.poster"
             alt=""
           >
         </el-table-column>
@@ -91,10 +96,20 @@
           fixed="right"
           align='center'
           label="操作"
-          width="100">
+          width="160">
           <template slot-scope="scope">
-            <el-button @click.native="tableEdit(scope.row._id)" type="text" size="small">编辑</el-button>
-            <el-button @click.native="tableDelete(scope.row._id)" type="text" size="small">删除</el-button>
+            <el-button
+              @click.native="tableEdit(scope.row._id)"
+              type="primary"
+              size="small"
+              :disabled="role !== 'admin'"
+            >编辑</el-button>
+            <el-button
+              @click.native="tableDelete(scope.row._id)"
+              type="danger"
+              size="small"
+              :disabled="role !== 'admin'"
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -125,6 +140,7 @@ export default {
   data () {
     return {
       value: '',
+      role: '',
       dataColumns: this.columns || [],
       dataTitle: this.title,
       dataFilters: this.filters,
@@ -156,6 +172,9 @@ export default {
           }]
         }
     }
+  },
+  created() {
+    this.role = JSON.parse(localStorage.getItem('userinfo')).role
   },
   mounted() {
     // console.log(this.dataFilters)
