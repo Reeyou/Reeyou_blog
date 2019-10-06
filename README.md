@@ -12,7 +12,7 @@
 
 ## 线上预览
 
-  [https://www.reeyou.cn:8081](https://www.reeyou.cn:8081)
+  [http://www.reeyou.cn:8081](http://www.reeyou.cn:8081)
 
 
 ## 前端页面
