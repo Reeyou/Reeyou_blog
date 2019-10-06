@@ -1,7 +1,7 @@
 # Reeyou_blog_admin
 
 > ##### 技术栈：vue-cli + vue + element + webpack 
-> ##### 实现效果：博客后台管理平台，兼容移动端
+> ##### 实现效果：博客后台管理，兼容移动端
 
 
 ## 简介
@@ -12,7 +12,7 @@
 
 ## 线上预览
 
-  [https://www.reeyou.cn:8081](https://www.reeyou.cn:8081)
+  [https://www.reeyou.cn](https://www.reeyou.cn)
 
 
 ## 前端页面
@@ -53,29 +53,23 @@
 
 ## 基本目录树
 ```
-├─build
+─build
 ├─config
 ├─src
 │  ├─assets
-│  │  ├─css
-│  │  ├─iconfont
-│  │  └─shoot
 │  ├─common
 │  ├─components
-│  │  ├─Layout
-│  │  ├─PageTable
-│  │  └─UploadImg
-│  ├─config
-│  ├─pages
+│  ├─config 
+│  ├─pages    
 │  │  ├─Article
-│  │  ├─Home
+│  │  │  └─detail
+│  │  ├─Index
 │  │  ├─Login
 │  │  ├─Message
-│  │  ├─Tag
-│  │  └─User
-│  ├─router
-│  ├─service
-│  ├─store
+│  │  └─Resume
+│  ├─router   
+│  ├─service  后端请求api
+│  ├─store    vuex
 │  └─utils
 ├─static
 └─test
