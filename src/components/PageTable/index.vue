@@ -121,9 +121,8 @@
           @size-change="handleChangeSize"
           @current-change="handleChangePage"
           :current-page="1"
-          :page-sizes="[7, 15, 30]"
           :page-size="8"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="total, prev, pager, next"
           :total="tbData.total">
         </el-pagination>
       </div>
@@ -324,7 +323,7 @@ export default {
     }
      .addBtn {
       margin-right: 20px;
-      margin-top: -6px;
+      margin-top: -4px;
       .el-button {
       padding: 8px 10px;
     }

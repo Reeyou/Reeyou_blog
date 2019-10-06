@@ -195,7 +195,7 @@ export default {
         width: 100%;
       }
       .editor {
-        background: #000;
+        // background: #000;
         .el-form-item__label{
           color: red;
         }

@@ -14,10 +14,12 @@
     text-align: center;
     display: table-cell;
     vertical-align: middle;
+    padding: 0 20px;
     h2 {
       color: $Black;
       padding: 30px 0;
-      font-size: 32px;
+      font-size: 28px;
+      line-height: 34px;
       font-weight: 500;
     }
     form {

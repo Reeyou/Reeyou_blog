@@ -1,8 +1,8 @@
 <template>
   <div class='header'>
-    <i v-if='muluVisible' class='iconfont icon-mulu1 mobile' @click='openMenu'></i>
+    <i v-if='!menuVisible' class='iconfont icon-mulu1 mobile' @click='openMenu'></i>
     <i v-else class='iconfont icon-md-close mobile' @click='closeMenu'></i>
-    <i class='iconfont icon-mulu pc' @click='collapse'></i>
+    <i v-if='isMobile' class='iconfont icon-mulu pc' @click='collapse'></i>
     <img class='logo' src="@/assets/logo_bg.jpg" alt="">
     <el-dropdown class="system-user">
       <span class="userinfo-inner">
@@ -23,12 +23,10 @@ import { mapMutations, mapState } from 'vuex'
     data() {
       return {
         scrrenWidth: '',
-        muluVisible: true,
         userinfo: JSON.parse(localStorage.getItem('userinfo'))
       }
     },
     mounted() {
-      console.log(this.userinfo)
       window.onresize = () => {
         this.scrrenWidth = document.body.clientWidth
         this.$store.commit('SCREEN_WIDTH',this.scrrenWidth)
@@ -36,7 +34,8 @@ import { mapMutations, mapState } from 'vuex'
     },
     computed: {
       ...mapState({
-        menuVisible: state => state.menuVisible
+        menuVisible: state => state.menuVisible,
+        isMobile: state => state.isMobile
       })
     },
     methods: {
@@ -51,14 +50,12 @@ import { mapMutations, mapState } from 'vuex'
       },
       collapse() {
         console.log('collapse')
-        this.menuWidth = '100px'
+        // this.menuWidth = '100px'
       },
       openMenu() {
-        this.muluVisible = false
         this.MENU_VISIBLE(true)
       },
       closeMenu() {
-        this.muluVisible = true
         this.MENU_VISIBLE(false)
       }
     }
@@ -106,7 +103,7 @@ import { mapMutations, mapState } from 'vuex'
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      margin: 10px 0px 10px 10px;
+      margin: 11px 0px 11px 10px;
       float: right;
     }
   }
@@ -124,8 +121,9 @@ import { mapMutations, mapState } from 'vuex'
     }
   }
   .system-user {
+    padding-right: 20px;
     .userinfo-inner {
-      .name {
+      > span {
         display: none;
       }
     }
