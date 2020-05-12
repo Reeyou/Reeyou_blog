@@ -7,7 +7,6 @@
     <!-- 添加按钮 -->
     <div class="addBtn" v-if='addBtn'>
       <el-button
-        :disabled="role !== 'admin'"
         type='primary'
         icon='el-icon-plus'
         @click='addBtn.onAdd'
@@ -38,7 +37,7 @@
           >
             <el-option
               v-for='(item, index) in filter.selectList'
-              :key='index' 
+              :key='index'
               :label="item.label"
               :value="item.value"
             ></el-option>
@@ -132,10 +131,9 @@
 
 <script>
 
-
 export default {
   name: 'PageTable',
-  props: ['tbData','columns','addBtn','title','filters','onFilter','onReset'],
+  props: ['tbData', 'columns', 'addBtn', 'title', 'filters', 'onFilter', 'onReset'],
   data () {
     return {
       value: '',
@@ -144,62 +142,62 @@ export default {
       dataTitle: this.title,
       dataFilters: this.filters,
       pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        }
+        shortcuts: [{
+          text: '最近一周',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近一个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近三个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          }
+        }]
+      }
     }
   },
-  created() {
+  created () {
     this.role = JSON.parse(localStorage.getItem('userinfo')).role
   },
-  mounted() {
+  mounted () {
     // console.log(this.dataFilters)
   },
   methods: {
-    tableEdit(id) {
-      this.$emit('handleEdit',id)
+    tableEdit (id) {
+      this.$emit('handleEdit', id)
     },
-    tableDelete(id) {
-      this.$emit('handleDelete',id)
+    tableDelete (id) {
+      this.$emit('handleDelete', id)
     },
-    handleFilter() {
+    handleFilter () {
       this.onFilter()
     },
-    handleReset() {
+    handleReset () {
       this.onReset()
     },
-    handleChangeSize(pageSize) {
-      this.$emit('handelChangeSize',pageSize)
+    handleChangeSize (pageSize) {
+      this.$emit('handelChangeSize', pageSize)
     },
-    handleChangePage(limit) {
-      this.$emit('handelChangePage',limit)
+    handleChangePage (limit) {
+      this.$emit('handelChangePage', limit)
     }
   },
   components: {
-   
+
   }
 }
 </script>

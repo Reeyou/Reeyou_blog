@@ -42,18 +42,26 @@ export default {
     }
   },
   methods: {
+    
     login() {
       const params = {
         username: this.username,
         password: this.password
       }
-      login(params).then(res => {
-        if(res.code == 200) {
-          localStorage.setItem('userinfo', JSON.stringify(res.data.userinfo))
-          sessionStorage.setItem('token',`Bearer ${res.data.token}`)
-          this.$router.push({path: '/'})
+      this.$refs[formName].validate((valid) => {
+        if(valid) {
+
+        } else {
+
         }
       })
+      // login(params).then(res => {
+      //   if(res.code == 200) {
+      //     localStorage.setItem('userinfo', JSON.stringify(res.data.userinfo))
+      //     sessionStorage.setItem('token',`Bearer ${res.data.token}`)
+      //     this.$router.push({path: '/'})
+      //   }
+      // })
     }
   },
   components: {

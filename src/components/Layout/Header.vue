@@ -1,12 +1,13 @@
 <template>
   <div class='header'>
-    <i v-if='!menuVisible' class='iconfont icon-mulu1 mobile' @click='openMenu'></i>
+    <i v-if='menuVisible' class='iconfont icon-mulu1 mobile' @click='openMenu'></i>
     <i v-else class='iconfont icon-md-close mobile' @click='closeMenu'></i>
-    <i v-if='isMobile' class='iconfont icon-mulu pc' @click='collapse'></i>
+    <i v-if='!isMobile' class='iconfont icon-mulu pc' @click='collapse'></i>
     <img class='logo' src="@/assets/logo_bg.jpg" alt="">
     <el-dropdown class="system-user">
       <span class="userinfo-inner">
-        <span>欢迎您</span> <span class='name'>{{userinfo.username}}</span>
+        <!-- <span>欢迎您</span> <span class='name'>{{userinfo.username}}</span> -->
+        <span>欢迎您</span> <span class='name'>Reeyou</span>
         <img src="@/assets/logo.png" alt="">
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -19,52 +20,53 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-  export default {
-    data() {
-      return {
-        scrrenWidth: '',
-        userinfo: JSON.parse(localStorage.getItem('userinfo'))
-      }
+export default {
+    data () {
+        return {
+            scrrenWidth: '',
+            userinfo: JSON.parse(localStorage.getItem('userinfo'))
+        }
     },
-    mounted() {
-      window.onresize = () => {
-        this.scrrenWidth = document.body.clientWidth
-        this.$store.commit('SCREEN_WIDTH',this.scrrenWidth)
-      }
+    mounted () {
+        window.onresize = () => {
+            this.scrrenWidth = document.body.clientWidth
+            this.$store.commit('SCREEN_WIDTH', this.scrrenWidth)
+        }
     },
     computed: {
-      ...mapState({
-        menuVisible: state => state.menuVisible,
-        isMobile: state => state.isMobile
-      })
+        ...mapState({
+            menuVisible: state => state.menuVisible,
+            isMobile: state => state.isMobile
+        })
     },
     methods: {
-      ...mapMutations([
-        'MENU_VISIBLE'
-      ]),
-      logout() {
-        this.$router.push('./login')
-        sessionStorage.removeItem('currentRouter')
-        sessionStorage.removeItem('token')
-        localStorage.removeItem('userinfo')
-      },
-      collapse() {
-        console.log('collapse')
-        // this.menuWidth = '100px'
-      },
-      openMenu() {
-        this.MENU_VISIBLE(true)
-      },
-      closeMenu() {
-        this.MENU_VISIBLE(false)
-      }
+        ...mapMutations([
+            'MENU_VISIBLE'
+        ]),
+        logout () {
+            this.$router.push('./login')
+            sessionStorage.removeItem('currentRouter')
+            sessionStorage.removeItem('token')
+            localStorage.removeItem('userinfo')
+        },
+        collapse () {
+            console.log('collapse')
+            // this.menuWidth = '100px'
+        },
+        openMenu () {
+            this.MENU_VISIBLE(false)
+        },
+        closeMenu () {
+            this.MENU_VISIBLE(true)
+        }
     }
-  }
+}
 </script>
 
 <style lang="scss" scoped>
 .header {
-  width: 100%;
+  width: calc(100% - 240px);
+  margin-left: 240px;
   background: #fff;
   position: fixed;
   line-height: 64px;

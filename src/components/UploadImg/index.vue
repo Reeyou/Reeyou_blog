@@ -23,51 +23,51 @@
 </template>
 
 <script>
-import dataURLtoBlob from "@/utils/dataURLtoBlob";
+import dataURLtoBlob from '@/utils/dataURLtoBlob'
 import { instance } from '@/utils/request'
 export default {
   props: ['action'],
-  data() {
+  data () {
     return {
-      poster_src: "",
+      poster_src: '',
       uploadStatus: false,
       files: '',
       imgData: ''
-    };
+    }
   },
   methods: {
-    upload(e) {
-      let self = this;
+    upload (e) {
+      let self = this
       self.files = e.target.files[0]
       if (!e || !window.FileReader) return // 看支持不支持FileReader
 
       let reader = new FileReader()
-      reader.readAsDataURL(self.files); // 转换为base64
-      reader.onloadend = function() {
+      reader.readAsDataURL(self.files) // 转换为base64
+      reader.onloadend = function () {
         self.poster_src = this.result
         self.uploadStatus = true
 
         let formdata = new FormData()
         let blob = dataURLtoBlob(this.result)
-        formdata.append("file", blob)
+        formdata.append('file', blob)
 
-        instance.post(self.action,formdata).then(res => {
+        instance.post(self.action, formdata).then(res => {
           self.imgData = res.data.data
-          self.$emit('getImgURL',self.imgData);
+          self.$emit('getImgURL', self.imgData)
         })
-      };
+      }
     },
-    handlePreview() {
+    handlePreview () {
 
     },
-    handleDelete() {
+    handleDelete () {
       this.poster_src = ''
       this.files = ''
       this.uploadStatus = false
       document.querySelector('#image').innerHTML = ''
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
