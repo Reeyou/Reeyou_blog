@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import ECharts from 'vue-echarts'
 import 'echarts/lib/chart/line'
 import '@/assets/css/reset.css'
@@ -15,15 +15,15 @@ import store from './store'
 
 Vue.component('chart', ECharts)
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

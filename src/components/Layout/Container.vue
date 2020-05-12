@@ -6,6 +6,7 @@
     </el-aside>
     <!-- 右侧页面 -->
     <el-main>
+      
       <!-- 面包屑 -->
       <div class="bread">
         <Breadcrumb />
@@ -28,6 +29,9 @@ import Breadcrumb from './Breadcrumb'
         menuVisible: state => state.menuVisible
       }),
     },
+    created() {
+      this.isMobile()
+    },
     watch: {
       // 监听屏幕尺寸变化
       screenWidth: function(val) {
@@ -38,6 +42,13 @@ import Breadcrumb from './Breadcrumb'
       ...mapMutations([
         'MENU_VISIBLE'
       ]),
+      isMobile() {
+        const initialWidth = document.body.clientWidth
+        console.log(initialWidth)
+        if(initialWidth < 900) {
+          this.MENU_VISIBLE(false)
+        }
+      }
     },
     components: {
       Breadcrumb

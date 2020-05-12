@@ -99,16 +99,16 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: routers
 })
-router.beforeEach((to, from, next) => {
-  const loginState = sessionStorage['token'] ? true : false
-  if(to.path == '/login' || to.path == '/register') {
-    next()
-  } else {
-    if(loginState) {
-      next()
-    } else {
-      next({path: '/login'})
-    }
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   const loginState = sessionStorage['token'] ? true : false
+//   if(to.path == '/login' || to.path == '/register') {
+//     next()
+//   } else {
+//     if(loginState) {
+//       next()
+//     } else {
+//       next({path: '/login'})
+//     }
+//   }
+// })
 export default router

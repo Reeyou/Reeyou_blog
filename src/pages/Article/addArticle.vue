@@ -10,7 +10,7 @@
       :rules="articleRule"
       label-width="100px"
       class="addForm"
-      label-position="left" 
+      label-position="left"
     >
       <el-form-item label="标题" prop="title">
         <el-input v-model="articleForm.title" placeholder="请输入文章标题"/>
@@ -49,89 +49,89 @@
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
-import { addArticle } from "@/service/article";
-import { getTagList } from "@/service/tag";
-import UploadImg from "@/components/UploadImg";
+import { mavonEditor } from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+import { addArticle } from '@/service/article'
+import { getTagList } from '@/service/tag'
+import UploadImg from '@/components/UploadImg'
 export default {
   components: {
     mavonEditor,
     UploadImg
   },
-  data() {
+  data () {
     return {
       value: '',
       tagList: [],
-      poster_src: "",
-      content: "", // 输入的markdown
-      html: "", // 及时转的html
+      poster_src: '',
+      content: '', // 输入的markdown
+      html: '', // 及时转的html
       visible: false,
       articleForm: {
-        title: "",
-        desc: "",
-        poster_src: "",
-        tag: "",
+        title: '',
+        desc: '',
+        poster_src: '',
+        tag: ''
       },
       articleRule: {
         title: [
           {
             required: true,
-            message: "文章标题不能为空",
-            trigger: "blur"
+            message: '文章标题不能为空',
+            trigger: 'blur'
           }
         ],
         desc: [
           {
             required: true,
-            message: "文章描述不能为空",
-            trigger: "blur"
+            message: '文章描述不能为空',
+            trigger: 'blur'
           }
         ],
         poster_src: [
           {
             required: true,
-            message: "封面图不能为空",
-            trigger: "change"
+            message: '封面图不能为空',
+            trigger: 'change'
           }
         ],
-        tag: [{ required: true, message: "文章标签不能为空", trigger: "blur" }],
+        tag: [{ required: true, message: '文章标签不能为空', trigger: 'blur' }],
         content: [
           {
             required: true,
-            message: "内容不能为空",
-            trigger: "change"
+            message: '内容不能为空',
+            trigger: 'change'
           }
         ]
       }
-    };
+    }
   },
-  created() {
+  created () {
     this.getTagData()
   },
   methods: {
-    getTagData() {
+    getTagData () {
       getTagList().then(res => {
-        if(res.code == 200) {
+        if (res.code == 200) {
           this.tagList = res.data.list
         }
       })
     },
-    getImgURL(url) {
-      this.poster_src = url;
+    getImgURL (url) {
+      this.poster_src = url
       this.articleForm.poster_src = url
     },
     // 所有操作都会被解析重新渲染
-    mavonChange(value, render) {
+    mavonChange (value, render) {
       this.content = value
-      this.html = render;
+      this.html = render
     },
-    changeTag(val) {
+    changeTag (val) {
       this.articleForm.tag = val
     },
     // 提交
-    handleSubmit() {
-      this.$refs["articleForm"].validate(valid => {
+    handleSubmit () {
+      this.$refs['articleForm'].validate(valid => {
         console.log(this.content)
         if (valid) {
           const data = this.articleForm
@@ -143,17 +143,17 @@ export default {
             content: this.html
           }
           addArticle(params).then(res => {
-            if(res.code == 200) {
+            if (res.code == 200) {
               // this.$Message.success("添加成功!")
             } else {
               // this.$Message.error("添加失败!");
             }
           })
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -195,7 +195,7 @@ export default {
         width: 100%;
       }
       .editor {
-        background: #000;
+        // background: #000;
         .el-form-item__label{
           color: red;
         }
@@ -204,7 +204,7 @@ export default {
   }
   .v-note-wrapper {
     float: left;
-    min-width: 0; 
+    min-width: 0;
     z-index: 0;
   }
 }
