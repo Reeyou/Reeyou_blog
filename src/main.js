@@ -12,12 +12,14 @@ import '@/assets/iconfont/iconfont.css'
 import axios from 'axios'
 import store from './store'
 import REEButton from '@/components/button'
+import util from '@/utils/util'
 
 Vue.component('chart', ECharts)
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$util = util
 
 Vue.use(REEButton)
 
