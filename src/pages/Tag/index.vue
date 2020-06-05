@@ -28,133 +28,133 @@
 </template>
 
 <script>
-import PageTable from "@/components/PageTable";
-import { addTagName, getTagList, deleteTagName, updateTagName } from '@/service/tag'
+import PageTable from '@/components/PageTable'
+import { addTagName, getTagList, deleteTagName } from '@/api/tag'
 export default {
-  data() {
-    return {
-      tagForm: {
-          name: '',
-        },
-      formLabelWidth: '100px',
-      tagAddVisble: false,
-      tagEditVisble: false,
-      tbData: [],
-      columns: [
-        {
-          label: "标签id",
-          key: "tag_id"
-        },
-        {
-          label: "标签名称",
-          key: "tagname"
-        }
-      ],
-      filters: [
-        {
-          label: "标题",
-          type: "Input"
-        },
-        {
-          label: "标签",
-          type: "Input"
-        },
-        {
-          label: "类型",
-          type: "Input"
-        },
-        {
-          label: "状态",
-          type: "Select",
-          selectList: [
-            {
-              value: "",
-              label: "全部"
+    data () {
+        return {
+            tagForm: {
+                name: ''
             },
-            {
-              value: 0,
-              label: "当前"
-            }
-          ]
+            formLabelWidth: '100px',
+            tagAddVisble: false,
+            tagEditVisble: false,
+            tbData: [],
+            columns: [
+                {
+                    label: '标签id',
+                    key: 'tag_id'
+                },
+                {
+                    label: '标签名称',
+                    key: 'tagname'
+                }
+            ],
+            filters: [
+                {
+                    label: '标题',
+                    type: 'Input'
+                },
+                {
+                    label: '标签',
+                    type: 'Input'
+                },
+                {
+                    label: '类型',
+                    type: 'Input'
+                },
+                {
+                    label: '状态',
+                    type: 'Select',
+                    selectList: [
+                        {
+                            value: '',
+                            label: '全部'
+                        },
+                        {
+                            value: 0,
+                            label: '当前'
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    };
-  },
-  created() {
-    this.getData()
-  },
-  methods: {
-    handelChangePage(pageSize) {
-     this.getData(pageSize)
     },
-    handelChangeSize(limit) {
-     this.getData(1,limit)
+    created () {
+        this.getData()
     },
-    handleFilter() {
-      console.log(11);
-    },
-    handleReset() {
-      console.log(22);
-    },
-    getData(pageSize = 1, limit = 7) {
-      getTagList({pageSize,limit}).then(res => {
-        if(res.code == 200) {
-          this.tbData = res.data
-        }
-      })
-    },
-    addTag() {
-      this.tagAddVisble = true;
-    },
-    handleAddOk() {
-      this.$refs['tagForm'].validate(valid => {
-        if(valid) {
-          console.log(this.tagForm.name)
-          const param = {
-            tagname: this.tagForm.name
-          }
-          addTagName(param).then(res => {
-            if(res.code == 200) {
-              this.tagAddVisble = false
-              this.getData()
-            }
-          })
-        } else {
-          console.log('err')
-        }
-      })
-    },
-     handleAddCancel() {
-      this.tagAddVisble = false
-      this.$refs['tagForm'].resetFields()
-    },
-    editTag() {
-      this.tagEditVisble = true
-    },
-    handleEdit() {
-      // updateTagName(params).then(res => {
+    methods: {
+        handelChangePage (pageSize) {
+            this.getData(pageSize)
+        },
+        handelChangeSize (limit) {
+            this.getData(1, limit)
+        },
+        handleFilter () {
+            console.log(11)
+        },
+        handleReset () {
+            console.log(22)
+        },
+        getData (pageSize = 1, limit = 7) {
+            getTagList({pageSize, limit}).then(res => {
+                if (res.code == 200) {
+                    this.tbData = res.data
+                }
+            })
+        },
+        addTag () {
+            this.tagAddVisble = true
+        },
+        handleAddOk () {
+            this.$refs['tagForm'].validate(valid => {
+                if (valid) {
+                    console.log(this.tagForm.name)
+                    const param = {
+                        tagname: this.tagForm.name
+                    }
+                    addTagName(param).then(res => {
+                        if (res.code == 200) {
+                            this.tagAddVisble = false
+                            this.getData()
+                        }
+                    })
+                } else {
+                    console.log('err')
+                }
+            })
+        },
+        handleAddCancel () {
+            this.tagAddVisble = false
+            this.$refs['tagForm'].resetFields()
+        },
+        editTag () {
+            this.tagEditVisble = true
+        },
+        handleEdit () {
+            // updateTagName(params).then(res => {
 
-      // })
-    },
-    handleEditOk() {
+            // })
+        },
+        handleEditOk () {
 
-    },
-    handleEditCancel() {
+        },
+        handleEditCancel () {
 
-    },
-    handleDelete(id) {
-      console.log(id)
-      deleteTagName({tagid: id}).then(res => {
-        if(res.code == 200) {
-          this.getData()
+        },
+        handleDelete (id) {
+            console.log(id)
+            deleteTagName({tagid: id}).then(res => {
+                if (res.code == 200) {
+                    this.getData()
+                }
+            })
         }
-      })
+    },
+    components: {
+        PageTable
     }
-  },
-  components: {
-    PageTable
-  }
-};
+}
 </script>
 
 <style lang="scss" scoped>

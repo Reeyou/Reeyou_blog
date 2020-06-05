@@ -101,13 +101,11 @@
               @click.native="tableEdit(scope.row._id)"
               type="primary"
               size="small"
-              :disabled="role !== 'admin'"
             >编辑</el-button>
             <el-button
               @click.native="tableDelete(scope.row._id)"
               type="danger"
               size="small"
-              :disabled="role !== 'admin'"
             >删除</el-button>
           </template>
         </el-table-column>
@@ -132,73 +130,69 @@
 <script>
 
 export default {
-  name: 'PageTable',
-  props: ['tbData', 'columns', 'addBtn', 'title', 'filters', 'onFilter', 'onReset'],
-  data () {
-    return {
-      value: '',
-      role: '',
-      dataColumns: this.columns || [],
-      dataTitle: this.title,
-      dataFilters: this.filters,
-      pickerOptions2: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近一个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
-        }]
-      }
-    }
-  },
-  created () {
-    this.role = JSON.parse(localStorage.getItem('userinfo')).role
-  },
-  mounted () {
+    name: 'PageTable',
+    props: ['tbData', 'columns', 'addBtn', 'title', 'filters', 'onFilter', 'onReset'],
+    data () {
+        return {
+            value: '',
+            dataColumns: this.columns || [],
+            dataTitle: this.title,
+            dataFilters: this.filters,
+            pickerOptions2: {
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick (picker) {
+                        const end = new Date()
+                        const start = new Date()
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+                        picker.$emit('pick', [start, end])
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick (picker) {
+                        const end = new Date()
+                        const start = new Date()
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+                        picker.$emit('pick', [start, end])
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick (picker) {
+                        const end = new Date()
+                        const start = new Date()
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+                        picker.$emit('pick', [start, end])
+                    }
+                }]
+            }
+        }
+    },
+    mounted () {
     // console.log(this.dataFilters)
-  },
-  methods: {
-    tableEdit (id) {
-      this.$emit('handleEdit', id)
     },
-    tableDelete (id) {
-      this.$emit('handleDelete', id)
+    methods: {
+        tableEdit (id) {
+            this.$emit('handleEdit', id)
+        },
+        tableDelete (id) {
+            this.$emit('handleDelete', id)
+        },
+        handleFilter () {
+            this.onFilter()
+        },
+        handleReset () {
+            this.onReset()
+        },
+        handleChangeSize (pageSize) {
+            this.$emit('handelChangeSize', pageSize)
+        },
+        handleChangePage (limit) {
+            this.$emit('handelChangePage', limit)
+        }
     },
-    handleFilter () {
-      this.onFilter()
-    },
-    handleReset () {
-      this.onReset()
-    },
-    handleChangeSize (pageSize) {
-      this.$emit('handelChangeSize', pageSize)
-    },
-    handleChangePage (limit) {
-      this.$emit('handelChangePage', limit)
-    }
-  },
-  components: {
+    components: {
 
-  }
+    }
 }
 </script>
 

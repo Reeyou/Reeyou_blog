@@ -32,36 +32,36 @@
 </template>
 
 <script>
-import { register } from '@/service/user'
+import { register } from '@/api/user'
 // import { mapMutations } from 'vuex'
 export default {
-  name: 'login',
-  data () {
-    return {
-      error_user: '请输入用户名',
-      error_password: '请输入密码',
-      error_msg: false,
-      username: '',
-      password: ''
-    }
-  },
-  methods: {
-    register() {
-      const params = {
-        username: this.username,
-        password: this.password
-      }
-      register(params).then(res => {
-        if(res.code == 200) {
-          // sessionStorage.setItem('token',res.data.token)
-          this.$router.push({path: '/login'})
+    name: 'login',
+    data () {
+        return {
+            error_user: '请输入用户名',
+            error_password: '请输入密码',
+            error_msg: false,
+            username: '',
+            password: ''
         }
-      })
+    },
+    methods: {
+        register () {
+            const params = {
+                username: this.username,
+                password: this.password
+            }
+            register(params).then(res => {
+                if (res.code == 200) {
+                    // sessionStorage.setItem('token',res.data.token)
+                    this.$router.push({path: '/login'})
+                }
+            })
+        }
+    },
+    components: {
+
     }
-  },
-  components: {
-  
-  }
 }
 </script>
 

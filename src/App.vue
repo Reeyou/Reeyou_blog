@@ -9,3 +9,6 @@ export default {
 
 }
 </script>
+<style lang="scss">
+  @import "@/res/styles/global.scss";
+</style>

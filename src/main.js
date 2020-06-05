@@ -9,15 +9,17 @@ import ECharts from 'vue-echarts'
 import 'echarts/lib/chart/line'
 import '@/assets/css/reset.css'
 import '@/assets/iconfont/iconfont.css'
-import '@/common/global.css'
 import axios from 'axios'
 import store from './store'
+import REEButton from '@/components/button'
 
 Vue.component('chart', ECharts)
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+
+Vue.use(REEButton)
 
 /* eslint-disable no-new */
 new Vue({

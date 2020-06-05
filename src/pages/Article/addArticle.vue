@@ -51,108 +51,108 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import { addArticle } from '@/service/article'
-import { getTagList } from '@/service/tag'
+import { addArticle } from '@/api/article'
+import { getTagList } from '@/api/tag'
 import UploadImg from '@/components/UploadImg'
 export default {
-  components: {
-    mavonEditor,
-    UploadImg
-  },
-  data () {
-    return {
-      value: '',
-      tagList: [],
-      poster_src: '',
-      content: '', // 输入的markdown
-      html: '', // 及时转的html
-      visible: false,
-      articleForm: {
-        title: '',
-        desc: '',
-        poster_src: '',
-        tag: ''
-      },
-      articleRule: {
-        title: [
-          {
-            required: true,
-            message: '文章标题不能为空',
-            trigger: 'blur'
-          }
-        ],
-        desc: [
-          {
-            required: true,
-            message: '文章描述不能为空',
-            trigger: 'blur'
-          }
-        ],
-        poster_src: [
-          {
-            required: true,
-            message: '封面图不能为空',
-            trigger: 'change'
-          }
-        ],
-        tag: [{ required: true, message: '文章标签不能为空', trigger: 'blur' }],
-        content: [
-          {
-            required: true,
-            message: '内容不能为空',
-            trigger: 'change'
-          }
-        ]
-      }
-    }
-  },
-  created () {
-    this.getTagData()
-  },
-  methods: {
-    getTagData () {
-      getTagList().then(res => {
-        if (res.code == 200) {
-          this.tagList = res.data.list
-        }
-      })
+    components: {
+        mavonEditor,
+        UploadImg
     },
-    getImgURL (url) {
-      this.poster_src = url
-      this.articleForm.poster_src = url
-    },
-    // 所有操作都会被解析重新渲染
-    mavonChange (value, render) {
-      this.content = value
-      this.html = render
-    },
-    changeTag (val) {
-      this.articleForm.tag = val
-    },
-    // 提交
-    handleSubmit () {
-      this.$refs['articleForm'].validate(valid => {
-        console.log(this.content)
-        if (valid) {
-          const data = this.articleForm
-          const params = {
-            title: data.title,
-            desc: data.desc,
-            poster: data.poster_src,
-            tag: data.tag,
-            content: this.html
-          }
-          addArticle(params).then(res => {
-            if (res.code == 200) {
-              // this.$Message.success("添加成功!")
-            } else {
-              // this.$Message.error("添加失败!");
+    data () {
+        return {
+            value: '',
+            tagList: [],
+            poster_src: '',
+            content: '', // 输入的markdown
+            html: '', // 及时转的html
+            visible: false,
+            articleForm: {
+                title: '',
+                desc: '',
+                poster_src: '',
+                tag: ''
+            },
+            articleRule: {
+                title: [
+                    {
+                        required: true,
+                        message: '文章标题不能为空',
+                        trigger: 'blur'
+                    }
+                ],
+                desc: [
+                    {
+                        required: true,
+                        message: '文章描述不能为空',
+                        trigger: 'blur'
+                    }
+                ],
+                // poster_src: [
+                //     {
+                //         required: true,
+                //         message: '封面图不能为空',
+                //         trigger: 'change'
+                //     }
+                // ],
+                // tag: [{ required: true, message: '文章标签不能为空', trigger: 'blur' }],
+                content: [
+                    {
+                        required: true,
+                        message: '内容不能为空',
+                        trigger: 'change'
+                    }
+                ]
             }
-          })
         }
-      })
+    },
+    created () {
+        this.getTagData()
+    },
+    methods: {
+        getTagData () {
+            getTagList().then(res => {
+                if (res.code == 200) {
+                    this.tagList = res.data.list
+                }
+            })
+        },
+        getImgURL (url) {
+            this.poster_src = url
+            this.articleForm.poster_src = url
+        },
+        // 所有操作都会被解析重新渲染
+        mavonChange (value, render) {
+            this.content = value
+            this.html = render
+        },
+        changeTag (val) {
+            this.articleForm.tag = val
+        },
+        // 提交
+        handleSubmit () {
+            this.$refs['articleForm'].validate(valid => {
+                console.log(this.content)
+                if (valid) {
+                    const data = this.articleForm
+                    const params = {
+                        title: data.title,
+                        desc: data.desc,
+                        poster: data.poster_src,
+                        tag: data.tag,
+                        content: this.html
+                    }
+                    addArticle(params).then(res => {
+                        if (res.code == 200) {
+                            // this.$Message.success("添加成功!")
+                        } else {
+                            // this.$Message.error("添加失败!");
+                        }
+                    })
+                }
+            })
+        }
     }
-  }
 }
 </script>
 

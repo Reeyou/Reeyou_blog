@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <el-tooltip content="Top center" placement="top" :value="true" manual>
+      <el-button>Dark</el-button>
+    </el-tooltip>
     <el-row class='total'>
       <el-col :xs="24" :sm="8" :md="8" :lg="8">
         <div class="card bg-purple">
@@ -38,7 +41,7 @@
                   <i class='iconfont icon-arrow_d'></i>
                   <span>19.9%</span>
                 </span>
-                
+
               </p>
             </div>
           </div>
@@ -74,7 +77,7 @@
             <i class='iconfont icon-mulu'></i>
           </div>
           <div class='echart'>
-            <Echart /> 
+            <Echart />
           </div>
         </div>
       </el-col>
@@ -122,12 +125,12 @@ import Timeline from './Timeline'
 import Tasklist from './Tasklist'
 import Echart from './Echart'
 export default {
-  components: {
-    Timeline,
-    Tasklist,
-    Echart
-  }
-};
+    components: {
+        Timeline,
+        Tasklist,
+        Echart
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -207,7 +210,7 @@ export default {
       .info {
         font-size: 14px;
         .percent {
-          
+
         }
         .per1 {
           color: #d92550;
@@ -245,7 +248,7 @@ export default {
       }
     }
     i {
-      
+
     }
   }
 }
