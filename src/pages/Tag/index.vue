@@ -43,11 +43,20 @@ export default {
             columns: [
                 {
                     label: '标签id',
-                    key: 'tag_id'
+                    prop: 'tag_id'
                 },
                 {
                     label: '标签名称',
-                    key: 'tagname'
+                    prop: 'tagname'
+                },
+                {
+                    label: '操作',
+                    fixed: 'right',
+                    width: 140,
+                    handle: [
+                        { icon: 'el-icon-edit', type: 'primary', clickFun: this.handleEdit },
+                        { icon: 'el-icon-delete', type: 'danger', clickFun: this.handleDelete }
+                    ]
                 }
             ],
             filters: [
@@ -98,7 +107,7 @@ export default {
         },
         getData (pageSize = 1, limit = 7) {
             getTagList({pageSize, limit}).then(res => {
-                if (res.code == 200) {
+                if (res.code === 200) {
                     this.tbData = res.data
                 }
             })

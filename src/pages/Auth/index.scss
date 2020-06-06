@@ -84,41 +84,6 @@
             top: 50%;
             margin-top: -2px;
           }
-          input:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0px 1000px rgb(244, 244, 243) inset !important;
-            -webkit-text-fill-color: #293444 !important;
-            font-size: 13px;
-          }
-
-          input {
-            width: 100%;
-            box-sizing: border-box;
-            outline: none;
-            border: 1px solid transparent;
-            background-color: #f3f3f4;
-            margin: 4px auto;
-            padding: 10px 16px 10px 36px;
-            border-radius: 10px;
-            color: #000;
-            font-size: 16px;
-            transition: all 400ms ease;
-            font-size: 13px;
-            &::placeholder {
-              font-family: 'sanji';
-              font-size: 12px;
-              color: #999;
-            }
-            &:hover { 
-              background-color: #fff;
-              border-color: rgba(0,0,0,0.1);
-              box-shadow: 0 0 0 2px rgba(234,76,137,0.1);
-            }
-            &:focus {
-              background-color: #fff;
-              box-shadow: 0 0 0 2px rgba(234,76,137,0.1);
-              border-color: rgba(234,76,137,0.4);
-            }
-          }
         }
         .err {
           i {
@@ -139,24 +104,24 @@
           color: $primary;
           padding-left: 16px;
         }
-        .btn {
-          margin-top: 20px;
+      }
+      .btn {
+        margin-top: 20px;
+      }
+      .tips {
+        width: 100%;
+        margin: 20px auto;
+        text-align: left;
+        span {
+          font-size: 13px;
+          color: #999;
         }
-        .tips {
-          width: 100%;
-          margin: 20px auto;
-          text-align: left;
-          span {
-            font-size: 13px;
-            color: #999;
-          }
-          .first {
-            float: left;
-          }
-          .last {
-            float: right;
-            vertical-align: bottom;
-          }
+        .first {
+          float: left;
+        }
+        .last {
+          float: right;
+          vertical-align: bottom;
         }
       }
     }

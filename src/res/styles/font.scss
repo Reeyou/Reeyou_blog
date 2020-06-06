@@ -8,6 +8,12 @@
   @font-face {
     font-family: "qingning";
     src: url("./assets/fonts/qn_youyuan.ttf")  format("truetype");
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "jm";
+    src: url("./assets/fonts/jinmeiyouyuan.ttf")  format("truetype");
     font-weight: 600;
     font-style: normal;
   }
@@ -23,6 +29,9 @@
     font-weight: 600;
     font-style: normal;
   }
+
+
+  // EN
   @font-face {
     font-family: "DIN";
     src: url("./assets/fonts/DINCondensedC.ttf")  format("truetype");
@@ -76,4 +85,10 @@
   }
   .HPS_font {
     font-family: "HPS";
+  }
+  h2 {
+    // font-family: 'qingning';
+  }
+  span {
+    // font-family: 'hy';
   }

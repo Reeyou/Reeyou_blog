@@ -55,9 +55,9 @@
       </FormItem>
       <FormItem label="文章正文" prop="content">
         <mavon-editor
-          v-model="content" 
-          ref="md" 
-          @change="change" 
+          v-model="content"
+          ref="md"
+          @change="change"
           style="min-height: 600px"
         />
       </FormItem>
@@ -69,133 +69,133 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-  export default { 
+export default {
     components: {
-        mavonEditor,
+        mavonEditor
     },
-    data() {
+    data () {
         return {
-            content:'', // 输入的markdown
-            html:'',    // 及时转的html
+            content: '', // 输入的markdown
+            html: '', // 及时转的html
             saveHtml: '',
             defaultList: [
-                    {
-                        'name': 'a42bdcc1178e62b4694c830f028db5c0',
-                        'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
-                    },
-                    {
-                        'name': 'bc7521e033abdd1e92222d733590f104',
-                        'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
-                    }
-                ],
-                imgName: '',
-                visible: false,
-                uploadList: [],
-            formValidate: {
-                    name: '',
-                    mail: '',
-                    city: '',
-                    gender: '',
-                    interest: [],
-                    date: '',
-                    time: '',
-                    desc: ''
+                {
+                    'name': 'a42bdcc1178e62b4694c830f028db5c0',
+                    'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
                 },
-            ruleValidate: {
-                    name: [
-                        { required: true, message: 'The name cannot be empty', trigger: 'blur' }
-                    ],
-                    mail: [
-                        { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
-                        { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
-                    ],
-                    city: [
-                        { required: true, message: 'Please select the city', trigger: 'change' }
-                    ],
-                    gender: [
-                        { required: true, message: 'Please select gender', trigger: 'change' }
-                    ],
-                    interest: [
-                        { required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change' },
-                        { type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change' }
-                    ],
-                    date: [
-                        { required: true, type: 'date', message: 'Please select the date', trigger: 'change' }
-                    ],
-                    time: [
-                        { required: true, type: 'string', message: 'Please select time', trigger: 'change' }
-                    ],
-                    desc: [
-                        { required: true, message: 'Please enter a personal introduction', trigger: 'blur' },
-                        { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
-                    ]
+                {
+                    'name': 'bc7521e033abdd1e92222d733590f104',
+                    'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
                 }
+            ],
+            imgName: '',
+            visible: false,
+            uploadList: [],
+            formValidate: {
+                name: '',
+                mail: '',
+                city: '',
+                gender: '',
+                interest: [],
+                date: '',
+                time: '',
+                desc: ''
+            },
+            ruleValidate: {
+                name: [
+                    { required: true, message: 'The name cannot be empty', trigger: 'blur' }
+                ],
+                mail: [
+                    { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+                    { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
+                ],
+                city: [
+                    { required: true, message: 'Please select the city', trigger: 'change' }
+                ],
+                gender: [
+                    { required: true, message: 'Please select gender', trigger: 'change' }
+                ],
+                interest: [
+                    { required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change' },
+                    { type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change' }
+                ],
+                date: [
+                    { required: true, type: 'date', message: 'Please select the date', trigger: 'change' }
+                ],
+                time: [
+                    { required: true, type: 'string', message: 'Please select time', trigger: 'change' }
+                ],
+                desc: [
+                    { required: true, message: 'Please enter a personal introduction', trigger: 'blur' },
+                    { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
+                ]
+            }
         }
     },
-    
+
     methods: {
         // 所有操作都会被解析重新渲染
-        change(value, render){
+        change (value, render) {
             // render 为 markdown 解析后的结果[html]
-            this.html = render;
+            this.html = render
         },
         // 提交
-        submit(){
-            console.log(this.content);
-            console.log(this.html);
+        submit () {
+            console.log(this.content)
+            console.log(this.html)
             // console.log(this.$refs.md.markdownIt)
             this.saveHtml = this.html
         },
         handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('Success!');
-                    } else {
-                        this.$Message.error('Fail!');
-                    }
-                })
-            },
-            handleReset (name) {
-                this.$refs[name].resetFields();
-            },
-            handleView (name) {
-                this.imgName = name;
-                this.visible = true;
-            },
-            handleRemove (file) {
-                const fileList = this.$refs.upload.fileList;
-                this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-            },
-            handleSuccess (res, file) {
-                file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
-                file.name = '7eb99afb9d5f317c912f08b5212fd69a';
-            },
-            handleFormatError (file) {
-                this.$Notice.warning({
-                    title: 'The file format is incorrect',
-                    desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
-                });
-            },
-            handleMaxSize (file) {
-                this.$Notice.warning({
-                    title: 'Exceeding file size limit',
-                    desc: 'File  ' + file.name + ' is too large, no more than 2M.'
-                });
-            },
-            handleBeforeUpload () {
-                const check = this.uploadList.length < 5;
-                if (!check) {
-                    this.$Notice.warning({
-                        title: 'Up to five pictures can be uploaded.'
-                    });
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    this.$Message.success('Success!')
+                } else {
+                    this.$Message.error('Fail!')
                 }
-                return check;
+            })
+        },
+        handleReset (name) {
+            this.$refs[name].resetFields()
+        },
+        handleView (name) {
+            this.imgName = name
+            this.visible = true
+        },
+        handleRemove (file) {
+            const fileList = this.$refs.upload.fileList
+            this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+        },
+        handleSuccess (res, file) {
+            file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar'
+            file.name = '7eb99afb9d5f317c912f08b5212fd69a'
+        },
+        handleFormatError (file) {
+            this.$Notice.warning({
+                title: 'The file format is incorrect',
+                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+            })
+        },
+        handleMaxSize (file) {
+            this.$Notice.warning({
+                title: 'Exceeding file size limit',
+                desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+            })
+        },
+        handleBeforeUpload () {
+            const check = this.uploadList.length < 5
+            if (!check) {
+                this.$Notice.warning({
+                    title: 'Up to five pictures can be uploaded.'
+                })
             }
+            return check
+        }
     },
-    mounted() {
-      this.uploadList = this.$refs.upload.fileList;
+    mounted () {
+        this.uploadList = this.$refs.upload.fileList
     }
-  }
+}
 </script>
 
 <style lang="scss" scoped>

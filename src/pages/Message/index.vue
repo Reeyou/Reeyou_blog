@@ -21,11 +21,20 @@ export default {
             columns: [
                 {
                     label: '用户',
-                    key: 'name'
+                    prop: 'name'
                 },
                 {
                     label: '留言内容',
-                    key: 'content'
+                    prop: 'content'
+                },
+                {
+                    label: '操作',
+                    fixed: 'right',
+                    width: 140,
+                    handle: [
+                        { icon: 'el-icon-edit', type: 'primary', clickFun: this.handleEdit },
+                        { icon: 'el-icon-delete', type: 'danger', clickFun: this.handleDelete }
+                    ]
                 }
             ],
             filters: [

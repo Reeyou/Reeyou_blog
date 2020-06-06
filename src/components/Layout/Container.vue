@@ -1,16 +1,15 @@
 <template>
   <el-container class="layout-content">
     <!-- 左侧菜单 -->
-    <el-aside v-if='menuVisible' style='width: 240px' ref='slider' class='slider'>
+    <el-aside :style="{'width': sliderWidth}" ref='slider' class='slider'>
       <slot name="left"></slot>
     </el-aside>
     <!-- 右侧页面 -->
     <el-main>
-      
       <!-- 面包屑 -->
-      <div class="bread">
+      <!-- <div class="bread">
         <Breadcrumb />
-      </div>
+      </div> -->
       <!-- 页面内容 -->
       <div class="content">
         <slot name="content"></slot>
@@ -22,38 +21,39 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import Breadcrumb from './Breadcrumb'
-  export default {
+export default {
     computed: {
-      ...mapState({
-        screenWidth: state => state.screenWidth,
-        menuVisible: state => state.menuVisible
-      }),
+        ...mapState({
+            screenWidth: state => state.screenWidth,
+            menuVisible: state => state.menuVisible,
+            sliderWidth: state => state.sliderWidth + 'px'
+        })
     },
-    created() {
-      this.isMobile()
+    created () {
+        this.isMobile()
     },
     watch: {
-      // 监听屏幕尺寸变化
-      screenWidth: function(val) {
-        val < 900 ? this.MENU_VISIBLE(false) : this.MENU_VISIBLE(true)
-      }
+        // 监听屏幕尺寸变化
+        screenWidth: function (val) {
+            val < 900 ? this.IS_COLLAPSE(false) : this.IS_COLLAPSE(true)
+        }
     },
     methods: {
-      ...mapMutations([
-        'MENU_VISIBLE'
-      ]),
-      isMobile() {
-        const initialWidth = document.body.clientWidth
-        console.log(initialWidth)
-        if(initialWidth < 900) {
-          this.MENU_VISIBLE(false)
+        ...mapMutations([
+            'IS_COLLAPSE'
+        ]),
+        isMobile () {
+            const initialWidth = document.body.clientWidth
+            console.log(initialWidth)
+            if (initialWidth < 900) {
+                this.IS_COLLAPSE(false)
+            }
         }
-      }
     },
     components: {
-      Breadcrumb
+        Breadcrumb
     }
-  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -68,12 +68,8 @@ import Breadcrumb from './Breadcrumb'
     margin-top: 64px;
     .bread {
       width: 100%;
-      background: #fff;
       height: 60px;
       border-right: none;
-      border-bottom: 1px solid #eee;
-      // background: #fefefe;
-      // box-shadow: 0 1px 10px rgba(0,0,0,.04);
       display: flex;
       align-items: center;
       position: fixed;
@@ -81,7 +77,6 @@ import Breadcrumb from './Breadcrumb'
       padding-left: 30px;
     }
     .content {
-      margin-top: 60px;
       padding: 14px;
       height: calc(100% - 54px);
       box-sizing: border-box;

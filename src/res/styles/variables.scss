@@ -3,12 +3,20 @@ $blue:    #0d6efd !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #d63384 !default;
-$red:     #dc3545 !default;
+$red:     #f56c6c !default;
 $orange:  #fd7e14 !default;
 $yellow:  #ffc107 !default;
 $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
+
+// $primary1: #54595d;
+// #409eff
+// 2694ff
+// 49a5ff
+// $primary1: #f7ad02;
+$primary1: linear-gradient(45deg, #2694ff, #49a5ff);
+$primary1_hover: linear-gradient(-45deg, #49a5ff, #2694ff);
 
 $pink_m:  #ea4c89 !default;
 $pink_m_hover: #fa679f !default;

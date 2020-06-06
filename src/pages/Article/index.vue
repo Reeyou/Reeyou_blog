@@ -26,35 +26,38 @@ export default {
             columns: [
                 {
                     label: '文章标题',
-                    key: 'title',
-                    width: 400
+                    prop: 'title'
+                    // width: 400
                 },
                 {
                     label: '文章描述',
-                    key: 'desc',
-                    width: 400
+                    prop: 'desc'
+                    // width: 400
                 },
                 {
                     label: '封面图',
-                    key: 'poster',
-                    width: 300
-                    // render: params => {
-                    //   return (
-                    //     <div class="action">
-                    //       <img src={params} />
-                    //     </div>
-                    //   );
-                    // }
+                    prop: 'poster',
+                    width: 140,
+                    type: 'pic'
                 },
                 {
                     label: '文章分类',
-                    key: 'tag',
-                    width: 160
+                    prop: 'tag',
+                    width: 100
                 },
                 {
                     label: '创建时间',
-                    key: 'create_time',
+                    prop: 'create_time',
                     width: 200
+                },
+                {
+                    label: '操作',
+                    // fixed: 'right',
+                    width: 140,
+                    handle: [
+                        { icon: 'el-icon-edit', type: 'primary', clickFun: this.handleEdit },
+                        { icon: 'el-icon-delete', type: 'danger', clickFun: this.handleDelete }
+                    ]
                 }
             ],
             filters: [

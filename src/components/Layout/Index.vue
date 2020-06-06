@@ -14,13 +14,13 @@
 import Header from './Header'
 import Slider from './Slider'
 import Container from './Container'
-  export default {
+export default {
     components: {
-      Header,
-      Slider,
-      Container
+        Header,
+        Slider,
+        Container
     }
-  }
+}
 </script>
 
 <style lang="scss" scoped>

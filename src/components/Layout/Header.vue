@@ -1,12 +1,11 @@
 <template>
-  <div class='header'>
-    <i v-if='menuVisible' class='iconfont icon-mulu1 mobile' @click='openMenu'></i>
-    <i v-else class='iconfont icon-md-close mobile' @click='closeMenu'></i>
-    <i v-if='!isMobile' class='iconfont icon-mulu pc' @click='collapse'></i>
-    <img class='logo' src="@/assets/logo_bg.jpg" alt="">
+  <div class='header' :style="{'margin-left': sliderWidth, 'width': `calc(100% - ${sliderWidth})`}">
+    <!-- <i v-if='!isCollapse' class='iconfont icon-menuOpen mobile' @click='openMenu'></i> -->
+    <!-- <i v-else class='iconfont icon-md-close mobile' @click='closeMenu'></i> -->
+    <i v-if="isCollapse" class='iconfont icon-menuOpen pc' @click='openMenu'></i>
+    <i v-else class='iconfont icon-menuClose pc' @click='closeMenu'></i>
     <el-dropdown class="system-user">
       <span class="userinfo-inner">
-        <!-- <span>欢迎您</span> <span class='name'>{{userinfo.username}}</span> -->
         <span>欢迎您</span> <span class='name'>Reeyou</span>
         <img src="@/assets/logo.png" alt="">
       </span>
@@ -35,13 +34,15 @@ export default {
     },
     computed: {
         ...mapState({
-            menuVisible: state => state.menuVisible,
-            isMobile: state => state.isMobile
+            isCollapse: state => state.isCollapse,
+            isMobile: state => state.isMobile,
+            sliderWidth: state => state.sliderWidth + 'px'
         })
     },
     methods: {
         ...mapMutations([
-            'MENU_VISIBLE'
+            'IS_COLLAPSE',
+            'SLIDER_WIDTH'
         ]),
         logout () {
             this.$router.push('./login')
@@ -51,13 +52,15 @@ export default {
         },
         collapse () {
             console.log('collapse')
-            // this.menuWidth = '100px'
+        // this.menuWidth = '100px'
         },
         openMenu () {
-            this.MENU_VISIBLE(false)
+            this.IS_COLLAPSE(false)
+            this.SLIDER_WIDTH(200)
         },
         closeMenu () {
-            this.MENU_VISIBLE(true)
+            this.IS_COLLAPSE(true)
+            this.SLIDER_WIDTH(64)
         }
     }
 }
@@ -65,15 +68,15 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  width: calc(100% - 240px);
-  margin-left: 240px;
+  box-sizing: border-box;
   background: #fff;
   position: fixed;
   line-height: 64px;
   height: 64px;
-  padding: 0 20px 0 0;
-  z-index: 90;
-  box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,.08);
+  padding: 0 28px;
+  border-bottom: 1px solid #e5e5e5;
+  z-index: 999;
+  // box-shadow: 0 2px 8px 2px rgba(0,0,0,0.08);
   .logo {
     display: none;
   }
@@ -83,14 +86,14 @@ export default {
     color: #000;
   }
   .pc {
-    font-size: 30px;
-    margin-left: 200px;
+    font-size: 24px;
+    color: #000;
+    cursor: pointer;
   }
 }
 .system-user {
   text-align: right;
   float: right;
-  padding-right: 40px;
   .userinfo-inner {
     color: #000;
     font-size: 16px;

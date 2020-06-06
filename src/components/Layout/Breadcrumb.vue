@@ -1,6 +1,5 @@
 <template>
   <div>
-    <i class="el-icon-house"></i>
     <el-breadcrumb class="breadcrumb" separator="/">
       <el-breadcrumb-item
         v-for='(item,index) in breadItems'
@@ -12,40 +11,40 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        breadItems: []
-      }
+export default {
+    data () {
+        return {
+            breadItems: []
+        }
     },
-    created() {
-      this.initBreadCrumb(this.$route)
+    created () {
+        this.initBreadCrumb(this.$route)
     },
-    watch:{
-      // 监听路由改变
-      $route(to,from){
-        this.initBreadCrumb(to)
-      },
+    watch: {
+        // 监听路由改变
+        $route (to, from) {
+            this.initBreadCrumb(to)
+        }
     },
-    mounted() {
-      
+    mounted () {
+
     },
     methods: {
-      initBreadCrumb(routers) {
+        initBreadCrumb (routers) {
         // 初始化面包屑数组
-        let currentBread = [{path: '/', title: '后台管理系统'}]
-        for(let index in routers.matched) {
-          if(routers.matched[index].meta && routers.matched[index].meta.title) {
-            currentBread.push({
-              path: routers.matched[index].path ? routers.matched[index].path : "/",
-              title: routers.matched[index].meta.title
-            })
-          }
+            let currentBread = [{path: '/', title: '后台管理系统'}]
+            for (let index in routers.matched) {
+                if (routers.matched[index].meta && routers.matched[index].meta.title) {
+                    currentBread.push({
+                        path: routers.matched[index].path ? routers.matched[index].path : '/',
+                        title: routers.matched[index].meta.title
+                    })
+                }
+            }
+            this.breadItems = currentBread
         }
-        this.breadItems = currentBread
-      }
-    },
-  }
+    }
+}
 </script>
 
 <style lang="scss" scoped>

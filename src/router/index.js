@@ -88,7 +88,7 @@ export const routers = [
             {
                 path: '/userManage/accountData',
                 name: 'accountData',
-                meta: { title: '账户管理', icon: 'el-icon-user', roles: ['admin'] },
+                meta: { title: '用户管理', icon: 'el-icon-user', roles: ['admin'] },
                 component: () => import('@/pages/User')
             }
         ]

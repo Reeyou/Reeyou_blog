@@ -2,8 +2,8 @@
 @import './font.scss';
 
 @mixin btn(
-    $bgColor: $primary,
-    $bg_hover_color: $primary_hover,
+    $bgColor: $primary1,
+    $bg_hover_color: $primary1_hover,
     $hover_color: #fff
 ) {
     font-family: 'sanji';
@@ -11,29 +11,44 @@
     border: none;
     background: $bgColor;
     padding: 10px 60px;
-    border-radius: 10px;
-    color: #fff;
+    border-radius: 6px;
+    color: #f8f6f6;
     font-size: 18px;
     transition: all 300ms ease-in-out;
+    display: flex;
+    align-items: center;
     &:hover {
         cursor: pointer;
-        background: $bg_hover_color;
-        color: $hover_color;
+        opacity: 0.88;
+        // background: $bg_hover_color;
+        // color: $hover_color;
     }
 }
-
 .primary-btn {
     @include btn;
+}
+.danger-btn {
+    @include btn($red);
 }
 .plain {
     @include btn(transparent, $primary);
     border: 1px solid $primary;
     color: $primary;
 }
+.mini {
+    padding: 4px 18px 7px 18px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.small {
+    padding: 5px 12px 8px 12px;
+    font-size: 14px;
+    vertical-align: middle;
+}
 .re-button {
     display: inline-block;
 }
 .re-button + .re-button {
-    margin-left: 14px;
+    margin-left: 4px;
 }
 

@@ -7,6 +7,12 @@ export default {
             type: 'success'
         })
     },
+    errorMsg: (message) => {
+        Message({
+            message,
+            type: 'success'
+        })
+    },
 
     resetFields: (form) => {
         for (let i in form) {

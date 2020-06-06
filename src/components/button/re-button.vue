@@ -15,28 +15,28 @@
     >
         <i class='el-icon-loading' v-if='loading'></i>
         <i :class='icon' v-if="icon && !loading"></i>
-        <slot></slot>
+        <span><slot></slot></span>
     </button>
 </template>
 
 <script>
-    export default {
-        name: 're-button',
-        props: {
-            type: {
-                type: String,
-                default: 'default'
-            },
-            loading: Boolean,
-            size: String,
-            plain: Boolean,
-            icon: String,
-            disabled: Boolean
+export default {
+    name: 're-button',
+    props: {
+        type: {
+            type: String,
+            default: 'default'
         },
-        methods: {
-            handleClick(e) {
-                this.$emit('click', e)
-            }
+        loading: Boolean,
+        size: String,
+        plain: Boolean,
+        icon: String,
+        disabled: Boolean
+    },
+    methods: {
+        handleClick (e) {
+            this.$emit('click', e)
         }
     }
+}
 </script>

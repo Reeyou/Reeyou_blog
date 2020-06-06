@@ -1,8 +1,5 @@
 <template>
   <div class="home">
-    <el-tooltip content="Top center" placement="top" :value="true" manual>
-      <el-button>Dark</el-button>
-    </el-tooltip>
     <el-row class='total'>
       <el-col :xs="24" :sm="8" :md="8" :lg="8">
         <div class="card bg-purple">
